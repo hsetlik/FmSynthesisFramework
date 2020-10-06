@@ -9,3 +9,22 @@
 */
 
 #include "OperatorProcessor.h"
+
+float Operator::sample(float fundamental)
+{
+    auto baseFreq = fundamental * ratio;
+    auto modShift = 0.0f;
+    if(modSources.size() != 0)
+    {
+        for(int i = 0; i < modSources.size(); ++i)
+        {
+            modShift += modSources[i]->lastOutputSample;
+        }
+    }
+    auto finalFreq = baseFreq + (modShift * modIndex);
+    auto fullAmp = osc.sinebuf(finalFreq);
+    lastOutputSample = envelope.process(fullAmp * level);
+    return lastOutputSample;
+}
+
+

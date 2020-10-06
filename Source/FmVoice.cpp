@@ -1,14 +1,11 @@
 /*
   ==============================================================================
 
-    AlgorithmProcessor.h
-    Created: 6 Oct 2020 1:05:34pm
+    FmVoice.cpp
+    Created: 6 Oct 2020 3:28:58pm
     Author:  Hayden Setlik
 
   ==============================================================================
 */
 
-#pragma once
-#include <JuceHeader.h>
-#include "OperatorProcessor.h"
-
+#include "FmVoice.h"

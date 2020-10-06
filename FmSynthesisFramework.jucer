@@ -20,6 +20,8 @@
         <FILE id="Kb4tNe" name="DAHDSR.h" compile="0" resource="0" file="Source/DAHDSR.h"/>
       </GROUP>
       <GROUP id="{D4DE1F11-DC7B-53D2-4DEA-605E5F253CE5}" name="WaveProcessing">
+        <FILE id="dpSjwc" name="FmVoice.cpp" compile="1" resource="0" file="Source/FmVoice.cpp"/>
+        <FILE id="m4OQe7" name="FmVoice.h" compile="0" resource="0" file="Source/FmVoice.h"/>
         <FILE id="FB5EE3" name="OperatorProcessor.cpp" compile="1" resource="0"
               file="Source/OperatorProcessor.cpp"/>
         <FILE id="JdZFAl" name="OperatorProcessor.h" compile="0" resource="0"
@@ -60,9 +62,39 @@
         <CONFIGURATION isDebug="1" name="Debug" targetName="FmSynthesisFramework" headerPath="/Users/hayden/Desktop/Programming/Maximilian_bits/src"/>
         <CONFIGURATION isDebug="0" name="Release" targetName="FmSynthesisFramework"/>
       </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../JUCE/modules"/>
+      </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
-  <MODULES/>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+  </MODULES>
   <LIVE_SETTINGS>
     <OSX/>
   </LIVE_SETTINGS>
