@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="dQHEYh" name="FmSynthesisFramework" projectType="audioplug"
+              useAppConfig="0" addUsingNamespaceToJuceHeader="0" displaySplashScreen="1"
+              jucerFormatVersion="1">
+  <MAINGROUP id="JWJQih" name="FmSynthesisFramework">
+    <GROUP id="{F49D26F6-330D-80A5-2EE3-5AD15BC6A94D}" name="Source">
+      <GROUP id="{C27B64CB-BF60-B9C7-D46A-3CFED5EB77EC}" name="Components">
+        <FILE id="jTiLH2" name="ModulationGrid.cpp" compile="1" resource="0"
+              file="Source/ModulationGrid.cpp"/>
+        <FILE id="Nj8BiH" name="ModulationGrid.h" compile="0" resource="0"
+              file="Source/ModulationGrid.h"/>
+        <FILE id="KKQU4r" name="OperatorComponent.cpp" compile="1" resource="0"
+              file="Source/OperatorComponent.cpp"/>
+        <FILE id="dvWF5z" name="OperatorComponent.h" compile="0" resource="0"
+              file="Source/OperatorComponent.h"/>
+      </GROUP>
+      <GROUP id="{82ABCC36-49EE-AAF9-7CF5-AC9B8B93190C}" name="ModulatorProcessors">
+        <FILE id="ne77kn" name="DAHDSR.cpp" compile="1" resource="0" file="Source/DAHDSR.cpp"/>
+        <FILE id="Kb4tNe" name="DAHDSR.h" compile="0" resource="0" file="Source/DAHDSR.h"/>
+      </GROUP>
+      <GROUP id="{D4DE1F11-DC7B-53D2-4DEA-605E5F253CE5}" name="WaveProcessing">
+        <FILE id="FB5EE3" name="OperatorProcessor.cpp" compile="1" resource="0"
+              file="Source/OperatorProcessor.cpp"/>
+        <FILE id="JdZFAl" name="OperatorProcessor.h" compile="0" resource="0"
+              file="Source/OperatorProcessor.h"/>
+        <FILE id="s1wjdn" name="AlgorithmProcessor.cpp" compile="1" resource="0"
+              file="Source/AlgorithmProcessor.cpp"/>
+        <FILE id="odaFMM" name="AlgorithmProcessor.h" compile="0" resource="0"
+              file="Source/AlgorithmProcessor.h"/>
+      </GROUP>
+      <GROUP id="{BFAC41CE-8C76-8CE5-1E55-8ED9C7B85A10}" name="Maximilian_bits">
+        <GROUP id="{68F0F5A9-DF2D-4F26-7FDE-270857FBF411}" name="src">
+          <GROUP id="{330B97E3-7D0B-8E6E-98A2-236AC21BE5E6}" name="libs">
+            <FILE id="Zm4SI9" name="fft.cpp" compile="1" resource="0" file="../../Maximilian_bits/src/libs/fft.cpp"/>
+            <FILE id="VamJv4" name="fft.h" compile="0" resource="0" file="../../Maximilian_bits/src/libs/fft.h"/>
+            <FILE id="vIpKoZ" name="maxiFFT.cpp" compile="1" resource="0" file="../../Maximilian_bits/src/libs/maxiFFT.cpp"/>
+            <FILE id="VgPNOk" name="maxiFFT.h" compile="0" resource="0" file="../../Maximilian_bits/src/libs/maxiFFT.h"/>
+            <FILE id="jzGrmM" name="maxiMFCC.cpp" compile="1" resource="0" file="../../Maximilian_bits/src/libs/maxiMFCC.cpp"/>
+            <FILE id="nsNf2F" name="maxiMFCC.h" compile="0" resource="0" file="../../Maximilian_bits/src/libs/maxiMFCC.h"/>
+            <FILE id="sy6qkO" name="sineTable.h" compile="0" resource="0" file="../../Maximilian_bits/src/libs/sineTable.h"/>
+          </GROUP>
+          <FILE id="i7GaSa" name="maximilian.cpp" compile="1" resource="0" file="../../Maximilian_bits/src/maximilian.cpp"/>
+          <FILE id="PbFB4s" name="maximilian.h" compile="0" resource="0" file="../../Maximilian_bits/src/maximilian.h"/>
+        </GROUP>
+      </GROUP>
+      <FILE id="PvY7lB" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="duFXNB" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
+      <FILE id="Xdxp83" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
+      <FILE id="YNjZzp" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="FmSynthesisFramework" headerPath="/Users/hayden/Desktop/Programming/Maximilian_bits/src"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="FmSynthesisFramework"/>
+      </CONFIGURATIONS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MODULES/>
+  <LIVE_SETTINGS>
+    <OSX/>
+  </LIVE_SETTINGS>
+</JUCERPROJECT>
