@@ -18,7 +18,7 @@ class Operator
 public:
     Operator(int opIndex) : index(opIndex)
     {
-        isActive = false;
+        isAudible = false;
     }
     ~Operator() {}
     void addModSource(Operator* newSource)
@@ -54,9 +54,13 @@ public:
     {
         return index;
     }
+    void setAudible(bool shouldBeAudible)
+    {
+        isAudible = shouldBeAudible;
+    }
     float sample(float fundamental);
     float lastOutputSample;
-    bool isActive;
+    bool isAudible;
     DAHDSR envelope;
 private:
     float ratio;

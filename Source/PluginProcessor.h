@@ -9,10 +9,13 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "FmVoice.h"
+#include "LayoutCreator.h"
+
+
+const int numOperators = 6;
 
 //==============================================================================
-/**
-*/
 class FmSynthesisFrameworkAudioProcessor  : public juce::AudioProcessor
 {
 public:
@@ -52,8 +55,9 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
-
+    juce::AudioProcessorValueTreeState tree;
 private:
+    juce::Synthesiser synth;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FmSynthesisFrameworkAudioProcessor)
 };
