@@ -181,7 +181,7 @@ public:
     void attach(juce::AudioProcessorValueTreeState* pTree)
     {
         juce::String iStr = juce::String(opIndex);
-        auto paramId = "modIndexParam" + iStr;
+        auto paramId = "indexParam" + iStr;
         attachment.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*pTree, paramId, *this));
     }
     juce::String idStr;
@@ -194,6 +194,7 @@ class OutputToggleButton : public juce::TextButton
 public:
     OutputToggleButton(int index) : opIndex(index)
     {
+        setClickingTogglesState(true);
         setButtonText("Output");
     }
     ~OutputToggleButton() {}

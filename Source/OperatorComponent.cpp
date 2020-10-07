@@ -44,6 +44,16 @@ OperatorComponent::~OperatorComponent()
 
 void OperatorComponent::resized()
 {
+    int n = getWidth() / 24;
+    delaySlider.setBounds(0, n, 4 * n, 7 * n);
+    attackSlider.setBounds(4 * n, n, 4 * n, 7 * n);
+    holdSlider.setBounds(8 * n, n, 4 * n, 7 * n);
+    decaySlider.setBounds(12 * n, n, 4 * n, 7 * n);
+    sustainSlider.setBounds(16 * n, n, 4 * n, 7 * n);
+    releaseSlider.setBounds(20 * n, n, 4 * n, 7 * n);
     
-
+    outputButton.setBounds(16 * n, 12 * n, 2 * n, n);
+    levelSlider.setBounds(n, 12 * n, 3 * n, 5 * n);
+    modIndexSlider.setBounds(4 * n, 12 * n, 4 * n, 7 * n);
+    ratioSlider.setBounds(8 * n, 12 * n, 4 * n, 7 * n);
 }

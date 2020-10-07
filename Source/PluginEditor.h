@@ -12,6 +12,7 @@
 #include "PluginProcessor.h"
 #include "OperatorComponent.h"
 #include "ModulationGrid.h"
+#include "RGBColor.h"
 
 //==============================================================================
 /**
@@ -24,10 +25,13 @@ public:
 
     //==============================================================================
     void resized() override;
+    void paint(juce::Graphics &g) override;
 
 private:
+    ColorCreator color;
     juce::OwnedArray<OperatorComponent> allOps;
     ModulationGrid modGrid;
+    std::vector<juce::Colour> opColors;
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     FmSynthesisFrameworkAudioProcessor& audioProcessor;

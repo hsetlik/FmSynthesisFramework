@@ -12,6 +12,7 @@
 
 #include <JuceHeader.h>
 #include "SliderSubclasses.h"
+#include "RGBColor.h"
 
 //==============================================================================
 /*
@@ -39,6 +40,8 @@ public:
     void resized() override;
     int opIndex;
 private:
+    ColorCreator color;
+    juce::Colour background;
     LevelSlider levelSlider;
     RatioSlider ratioSlider;
     ModIndexSlider modIndexSlider;
