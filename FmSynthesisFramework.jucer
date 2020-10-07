@@ -5,6 +5,7 @@
               jucerFormatVersion="1">
   <MAINGROUP id="JWJQih" name="FmSynthesisFramework">
     <GROUP id="{F49D26F6-330D-80A5-2EE3-5AD15BC6A94D}" name="Source">
+      <FILE id="JZzLt9" name="RGBColor.h" compile="0" resource="0" file="Source/RGBColor.h"/>
       <GROUP id="{C27B64CB-BF60-B9C7-D46A-3CFED5EB77EC}" name="Components">
         <FILE id="jTiLH2" name="ModulationGrid.cpp" compile="1" resource="0"
               file="Source/ModulationGrid.cpp"/>

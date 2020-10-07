@@ -34,8 +34,6 @@ releaseSlider(index)
     addAndMakeVisible(&decaySlider);
     addAndMakeVisible(&sustainSlider);
     addAndMakeVisible(&releaseSlider);
-    
-
 }
 
 OperatorComponent::~OperatorComponent()
