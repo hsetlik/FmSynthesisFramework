@@ -55,6 +55,14 @@ juce::AudioProcessorValueTreeState::ParameterLayout createLayout(int numOperator
         layout.add(std::make_unique<juce::AudioParameterFloat>(decayId, decayName, timeRange2, 100.0f));
         layout.add(std::make_unique<juce::AudioParameterFloat>(sustainId, sustainName, 0.0f, 1.0f , 1.0f));
         layout.add(std::make_unique<juce::AudioParameterFloat>(releaseId, releaseName, timeRange2, 40.0f));
+        //bools for modulation paths
+        for(int n = 0; n < numOperators; ++n)
+        {
+            juce::String nStr = juce::String(n);
+            auto modId = iStr + "to" + nStr + "Param";
+            auto modName = "Operator " + iStr + " to " + nStr;
+            layout.add(std::make_unique<juce::AudioParameterBool>(modId, modName, false));
+        }
     }
     return layout;
 }

@@ -14,6 +14,8 @@
               file="Source/OperatorComponent.cpp"/>
         <FILE id="dvWF5z" name="OperatorComponent.h" compile="0" resource="0"
               file="Source/OperatorComponent.h"/>
+        <FILE id="PMJDwR" name="SliderSubclasses.h" compile="0" resource="0"
+              file="Source/SliderSubclasses.h"/>
       </GROUP>
       <GROUP id="{82ABCC36-49EE-AAF9-7CF5-AC9B8B93190C}" name="ModulatorProcessors">
         <FILE id="ne77kn" name="DAHDSR.cpp" compile="1" resource="0" file="Source/DAHDSR.cpp"/>
