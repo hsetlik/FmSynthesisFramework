@@ -16,9 +16,9 @@
 class Operator
 {
 public:
-    Operator(int opIndex) : index(opIndex)
+    Operator(int opIndex) :  ratio(1.0f), index(opIndex)
     {
-        isAudible = false;
+        //isAudible = false;
     }
     ~Operator() {}
     void addModSource(Operator* newSource)
@@ -54,13 +54,13 @@ public:
     {
         return index;
     }
-    void setAudible(bool shouldBeAudible)
+    void setAudible(float shouldBeAudible)
     {
         isAudible = shouldBeAudible;
     }
     float sample(float fundamental);
     float lastOutputSample;
-    bool isAudible;
+    bool isAudible = false;
     DAHDSR envelope;
     std::vector<Operator*> modSources;
 private:

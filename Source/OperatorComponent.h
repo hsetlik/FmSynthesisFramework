@@ -19,14 +19,15 @@
 class OperatorComponent  : public juce::Component
 {
 public:
-    OperatorComponent(int index);
+    OperatorComponent(int index, juce::AudioProcessorValueTreeState* pTree);
     ~OperatorComponent() override;
     void attachAll(juce::AudioProcessorValueTreeState* pTree)
     {
+        outputButton.attach(pTree);
         levelSlider.attach(pTree);
         ratioSlider.attach(pTree);
         modIndexSlider.attach(pTree);
-        outputButton.attach(pTree);
+        
         
         delaySlider.attach(pTree);
         attackSlider.attach(pTree);

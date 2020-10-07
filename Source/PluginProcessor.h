@@ -14,6 +14,7 @@
 
 
 const int numOperators = 6;
+const int numVoices = 6;
 
 //==============================================================================
 class FmSynthesisFrameworkAudioProcessor  : public juce::AudioProcessor

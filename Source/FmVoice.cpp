@@ -10,7 +10,7 @@
 
 #include "FmVoice.h"
 
-FmVoice::FmVoice(int numOperators)
+FmVoice::FmVoice(int numOperators) :  operatorCount(numOperators), fundamental(0.0f)
 {
     for(int i = 0; i < numOperators; ++i)
     {
@@ -23,10 +23,10 @@ void FmVoice::renderNextBlock(juce::AudioBuffer<float> &outputBuffer, int startS
     for(int i = 0; i < numSamples; ++i)
     {
         float sum = 0.0f;
-        for(int o = 0; o < operators.size(); ++o)
+        for(int o = 0; o < operatorCount; ++o)
         {
-            float newSample = operators[i]->sample(fundamental);
-            if(operators[i]->isAudible)
+            float newSample = operators[o]->sample(fundamental);
+            if(operators[o]->isAudible)
                 sum += newSample;
         }
         for(int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)

@@ -12,7 +12,7 @@
 #include "OperatorComponent.h"
 
 //==============================================================================
-OperatorComponent::OperatorComponent(int index) :
+OperatorComponent::OperatorComponent(int index, juce::AudioProcessorValueTreeState* pTree) :
 levelSlider(index),
 ratioSlider(index),
 modIndexSlider(index),
@@ -24,6 +24,7 @@ decaySlider(index),
 sustainSlider(index),
 releaseSlider(index)
 {
+    attachAll(pTree);
     addAndMakeVisible(&levelSlider);
     addAndMakeVisible(&ratioSlider);
     addAndMakeVisible(&modIndexSlider);
@@ -34,6 +35,7 @@ releaseSlider(index)
     addAndMakeVisible(&decaySlider);
     addAndMakeVisible(&sustainSlider);
     addAndMakeVisible(&releaseSlider);
+    
 }
 
 OperatorComponent::~OperatorComponent()

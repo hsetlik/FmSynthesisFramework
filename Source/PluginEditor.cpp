@@ -11,25 +11,39 @@
 
 //==============================================================================
 FmSynthesisFrameworkAudioProcessorEditor::FmSynthesisFrameworkAudioProcessorEditor (FmSynthesisFrameworkAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p)
+    : AudioProcessorEditor (&p), modGrid(numOperators), audioProcessor (p)
 {
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
+    for(int i = 0; i < numOperators; ++i)
+    {
+        allOps.add(new OperatorComponent(i, &audioProcessor.tree));
+        addAndMakeVisible(*allOps.getLast());
+    }
+    addAndMakeVisible(&modGrid);
+    modGrid.attachButtons(&audioProcessor.tree);
     setSize (800, 600);
 }
 
 FmSynthesisFrameworkAudioProcessorEditor::~FmSynthesisFrameworkAudioProcessorEditor()
 {
 }
-
 //==============================================================================
-void FmSynthesisFrameworkAudioProcessorEditor::paint (juce::Graphics& g)
-{
-    
-}
-
 void FmSynthesisFrameworkAudioProcessorEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
+    int w = getWidth() / 4;
+    int h = getHeight() / 2;
+    for(int i = 0; i < numOperators; ++i)
+    {
+        int y;
+        if(i > 2)
+            y = h;
+        else
+            y = 0;
+        int xFactor;
+        if(i > 2)
+            xFactor = xFactor = i - 3;
+        else
+            xFactor = i;
+        allOps[i]->setBounds(w * xFactor, y, w, h);
+    }
+    modGrid.setBounds(3 * w, 0, w, w);
 }

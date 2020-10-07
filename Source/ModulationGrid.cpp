@@ -17,15 +17,14 @@ ModulationGrid::ModulationGrid(int numOperators)
     //create the button objects
     for(int source = 0; source < numOperators; ++source)
     {
-        std::vector<ModulationToggle> buttonSet;
+        buttons.add(new juce::OwnedArray<ModulationToggle>);
         for(int dest = 0; dest < numOperators; ++dest)
         {
-            std::unique_ptr<ModulationToggle> toggle(new ModulationToggle(source, dest));
-            buttonSet.push_back(*toggle);
+            juce::OwnedArray<ModulationToggle>* buttonSet = buttons.getLast();
             //make each button visible as it is created
-            addAndMakeVisible(buttonSet.back());
+            buttonSet->add(new ModulationToggle(source, dest));
+            addAndMakeVisible(buttonSet->getLast());
         }
-        buttons.push_back(buttonSet);
     }
 }
 
@@ -36,13 +35,13 @@ ModulationGrid::~ModulationGrid()
 void ModulationGrid::attachButtons(juce::AudioProcessorValueTreeState *pTree)
 {
     int operatorCount = (int)buttons.size();
-    for(int set = 0; set < operatorCount; ++set)
+    for(int source = 0; source < operatorCount; ++source)
     {
-        std::vector<ModulationToggle> currentVector = buttons[set];
-        for(int button = 0; button < operatorCount; ++button)
+        juce::OwnedArray<ModulationToggle>* array = buttons[source];
+        for(int dest = 0; dest < operatorCount; ++dest)
         {
-            ModulationToggle* currentButton = &currentVector[button];
-            currentButton->attach(pTree);
+            ModulationToggle* thisButton = array->getUnchecked(dest);
+            thisButton->attach(pTree);
         }
     }
 }
@@ -52,11 +51,11 @@ void ModulationGrid::resized()
     int n = getWidth() / 6;
     for(int source = 0; source < buttons.size(); ++source)
     {
-        std::vector<ModulationToggle> buttonSet = buttons[source];
+        juce::OwnedArray<ModulationToggle>* array = buttons[source];
         for(int dest = 0; dest < buttons.size(); ++dest)
         {
-            ModulationToggle* thisButton = &buttonSet[dest];
-            thisButton->setBounds(n * source, n * source, n, n);
+            ModulationToggle* thisButton = array->getUnchecked(dest);
+            thisButton->setBounds(source * n, dest * n, n, n);
         }
     }
 }

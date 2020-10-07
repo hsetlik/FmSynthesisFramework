@@ -10,6 +10,8 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "OperatorComponent.h"
+#include "ModulationGrid.h"
 
 //==============================================================================
 /**
@@ -21,13 +23,15 @@ public:
     ~FmSynthesisFrameworkAudioProcessorEditor() override;
 
     //==============================================================================
-    void paint (juce::Graphics&) override;
     void resized() override;
 
 private:
+    juce::OwnedArray<OperatorComponent> allOps;
+    ModulationGrid modGrid;
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     FmSynthesisFrameworkAudioProcessor& audioProcessor;
+    
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FmSynthesisFrameworkAudioProcessorEditor)
 };

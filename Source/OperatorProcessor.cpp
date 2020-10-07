@@ -10,7 +10,7 @@
 
 #include "OperatorProcessor.h"
 
-float Operator::sample(float fundamental)
+float Operator::sample(float fundamental) 
 {
     auto baseFreq = fundamental * ratio;
     auto modShift = 0.0f;

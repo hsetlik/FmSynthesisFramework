@@ -8,7 +8,8 @@ class LevelSlider : public juce::Slider
 public:
     LevelSlider(int index) : opIndex(index)
     {
-        
+        setSliderStyle(juce::Slider::Rotary);
+        setTextBoxStyle(juce::Slider::TextBoxBelow, false, 45, 15);
     }
     ~LevelSlider(){}
     void attach(juce::AudioProcessorValueTreeState* pTree)
@@ -27,6 +28,8 @@ class DelaySlider : public juce::Slider
 public:
     DelaySlider(int index) : opIndex(index)
     {
+        setSliderStyle(juce::Slider::Rotary);
+        setTextBoxStyle(juce::Slider::TextBoxBelow, false, 45, 15);
         
     }
     ~DelaySlider(){}
@@ -46,6 +49,8 @@ class AttackSlider : public juce::Slider
 public:
     AttackSlider(int index) : opIndex(index)
     {
+        setSliderStyle(juce::Slider::Rotary);
+        setTextBoxStyle(juce::Slider::TextBoxBelow, false, 45, 15);
         
     }
     ~AttackSlider(){}
@@ -65,6 +70,8 @@ class HoldSlider : public juce::Slider
 public:
     HoldSlider(int index) : opIndex(index)
     {
+        setSliderStyle(juce::Slider::Rotary);
+        setTextBoxStyle(juce::Slider::TextBoxBelow, false, 45, 15);
         
     }
     ~HoldSlider(){}
@@ -84,6 +91,8 @@ class DecaySlider : public juce::Slider
 public:
     DecaySlider(int index) : opIndex(index)
     {
+        setSliderStyle(juce::Slider::Rotary);
+        setTextBoxStyle(juce::Slider::TextBoxBelow, false, 45, 15);
         
     }
     ~DecaySlider(){}
@@ -102,6 +111,8 @@ class SustainSlider : public juce::Slider
 public:
     SustainSlider(int index) : opIndex(index)
     {
+        setSliderStyle(juce::Slider::Rotary);
+        setTextBoxStyle(juce::Slider::TextBoxBelow, false, 45, 15);
         
     }
     ~SustainSlider(){}
@@ -121,6 +132,8 @@ class ReleaseSlider : public juce::Slider
 public:
     ReleaseSlider(int index) : opIndex(index)
     {
+        setSliderStyle(juce::Slider::Rotary);
+        setTextBoxStyle(juce::Slider::TextBoxBelow, false, 45, 15);
         
     }
     ~ReleaseSlider(){}
@@ -140,6 +153,8 @@ class RatioSlider : public juce::Slider
 public:
     RatioSlider(int index) : opIndex(index)
     {
+        setSliderStyle(juce::Slider::Rotary);
+        setTextBoxStyle(juce::Slider::TextBoxBelow, false, 45, 15);
         
     }
     ~RatioSlider(){}
@@ -159,7 +174,8 @@ class ModIndexSlider : public juce::Slider
 public:
     ModIndexSlider(int index) : opIndex(index)
     {
-        
+        setSliderStyle(juce::Slider::Rotary);
+        setTextBoxStyle(juce::Slider::TextBoxBelow, false, 45, 15);
     }
     ~ModIndexSlider(){}
     void attach(juce::AudioProcessorValueTreeState* pTree)
@@ -178,7 +194,7 @@ class OutputToggleButton : public juce::TextButton
 public:
     OutputToggleButton(int index) : opIndex(index)
     {
-        
+        setButtonText("Output");
     }
     ~OutputToggleButton() {}
     void attach(juce::AudioProcessorValueTreeState* pTree)

@@ -55,24 +55,25 @@ public:
         if(velocity == 0)
             clearCurrentNote();
     }
-    void setParameters(
+    void setParameters
+                     (
                      int operatorIndex,
                      std::atomic<float>* ratio,
+                     std::atomic<float>* level,
+                     std::atomic<float>* modIndex,
+                     std::atomic<float>* isAudible,
                      std::atomic<float>* envDelay,
                      std::atomic<float>* envAttack,
                      std::atomic<float>* envHold,
                      std::atomic<float>* envDecay,
                      std::atomic<float>* envSustain,
-                     std::atomic<float>* envRelease,
-                     std::atomic<float>* level,
-                     std::atomic<float>* modIndex,
-                     std::atomic<float>* audible
+                     std::atomic<float>* envRelease
                      )
     {
         operators[operatorIndex]->setRatio(*ratio);
         operators[operatorIndex]->setLevel(*level);
         operators[operatorIndex]->setModIndex(*modIndex);
-        operators[operatorIndex]->setAudible(*audible);
+        operators[operatorIndex]->setAudible(*isAudible);
         operators[operatorIndex]->envelope.setDelay(*envDelay);
         operators[operatorIndex]->envelope.setAttack(*envAttack);
         operators[operatorIndex]->envelope.setHold(*envHold);
@@ -120,6 +121,7 @@ public:
     {
         
     }
+    int operatorCount;
     float fundamental;
     juce::OwnedArray<Operator> operators;
 };

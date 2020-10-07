@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="dQHEYh" name="FmSynthesisFramework" projectType="audioplug"
               useAppConfig="0" addUsingNamespaceToJuceHeader="0" displaySplashScreen="1"
-              jucerFormatVersion="1">
+              jucerFormatVersion="1" pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
   <MAINGROUP id="JWJQih" name="FmSynthesisFramework">
     <GROUP id="{F49D26F6-330D-80A5-2EE3-5AD15BC6A94D}" name="Source">
       <FILE id="JZzLt9" name="RGBColor.h" compile="0" resource="0" file="Source/RGBColor.h"/>
