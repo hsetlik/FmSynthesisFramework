@@ -55,7 +55,7 @@ public:
         if(velocity == 0)
             clearCurrentNote();
     }
-    void setEnvelope(
+    void setParameters(
                      int operatorIndex,
                      std::atomic<float>* ratio,
                      std::atomic<float>* envDelay,
@@ -79,6 +79,25 @@ public:
         operators[operatorIndex]->envelope.setDecay(*envDecay);
         operators[operatorIndex]->envelope.setSustain(*envSustain);
         operators[operatorIndex]->envelope.setRelease(*envRelease);
+    }
+    void setAlgorithm(juce::AudioProcessorValueTreeState* pTree)
+    {
+        for(int source = 0; source < operators.size(); ++source)
+        {
+            auto sString = juce::String(source);
+            for(int dest = 0; dest < operators.size(); ++dest)
+            {
+                auto dString = juce::String(dest);
+                operators[dest]->modSources.clear();
+                auto paramToCheck = sString + "to" + dString + "Param";
+                std::atomic<float>* param = pTree->getRawParameterValue(paramToCheck);
+                bool modulationOn = (bool) *param;
+                if(modulationOn)
+                {
+                    operators[dest]->addModSource(operators[source]);
+                }
+            }
+        }
     }
     void setSampleRate(double newRate)
     {

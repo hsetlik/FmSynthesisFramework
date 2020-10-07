@@ -129,7 +129,40 @@ bool FmSynthesisFrameworkAudioProcessor::isBusesLayoutSupported (const BusesLayo
 
 void FmSynthesisFrameworkAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
-    
+    for(int voice = 0; voice < synth.getNumVoices(); ++ voice)
+    {
+        if((thisVoice =  dynamic_cast<FmVoice*>(synth.getVoice(voice))))
+        {
+            thisVoice->setAlgorithm(&tree);
+            for(int i = 0; i < numOperators; ++i)
+            {
+                auto iStr = juce::String(i);
+                auto ratioId = "ratioParam" + iStr;
+                auto levelId = "levelParam" + iStr;
+                auto modIndexId = "modIndexParam" + iStr;
+                auto audibleId = "audibleParam" + iStr;
+                
+                auto delayId = "delayParam" + iStr;
+                auto attackId = "attackParam" + iStr;
+                auto holdId = "holdParam" + iStr;
+                auto decayId = "decayParam" + iStr;
+                auto sustainId = "sustainParam" + iStr;
+                auto releaseId = "releaseId" + iStr;
+                
+                thisVoice->setParameters(i, tree.getRawParameterValue(ratioId),
+                                         tree.getRawParameterValue(delayId),
+                                         tree.getRawParameterValue(attackId),
+                                         tree.getRawParameterValue(holdId),
+                                         tree.getRawParameterValue(decayId),
+                                         tree.getRawParameterValue(sustainId),
+                                         tree.getRawParameterValue(releaseId),
+                                         tree.getRawParameterValue(levelId),
+                                         tree.getRawParameterValue(modIndexId),
+                                         tree.getRawParameterValue(audibleId));
+            }
+        }
+    }
+    synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
 
 //==============================================================================

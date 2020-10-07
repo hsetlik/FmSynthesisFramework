@@ -62,12 +62,12 @@ public:
     float lastOutputSample;
     bool isAudible;
     DAHDSR envelope;
+    std::vector<Operator*> modSources;
 private:
     float ratio;
     float fundamental;
     float modIndex;
     float level;
     int index;
-    std::vector<Operator*> modSources;
     maxiOsc osc;
 };
