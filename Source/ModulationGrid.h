@@ -25,6 +25,7 @@ public:
     destOp(dest)
     {
         shouldUseOnColours(true);
+        setClickingTogglesState(true);
     }
     ~ModulationToggle() {}
     void attach(juce::AudioProcessorValueTreeState* pTree)
@@ -42,11 +43,13 @@ public:
 class ModulationGrid  : public juce::Component
 {
 public:
-    ModulationGrid();
+    ModulationGrid(int numOperators);
     ~ModulationGrid() override;
+    void attachButtons(juce::AudioProcessorValueTreeState* pTree);
     void paint (juce::Graphics&) override;
     void resized() override;
 
 private:
+    std::vector<std::vector<ModulationToggle>> buttons;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ModulationGrid)
 };

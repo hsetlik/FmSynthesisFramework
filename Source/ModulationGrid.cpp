@@ -12,40 +12,51 @@
 #include "ModulationGrid.h"
 
 //==============================================================================
-ModulationGrid::ModulationGrid()
+ModulationGrid::ModulationGrid(int numOperators)
 {
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
-
+    //create the button objects
+    for(int source = 0; source < numOperators; ++source)
+    {
+        std::vector<ModulationToggle> buttonSet;
+        for(int dest = 0; dest < numOperators; ++dest)
+        {
+            std::unique_ptr<ModulationToggle> toggle(new ModulationToggle(source, dest));
+            buttonSet.push_back(*toggle);
+            //make each button visible as it is created
+            addAndMakeVisible(buttonSet.back());
+        }
+        buttons.push_back(buttonSet);
+    }
 }
 
 ModulationGrid::~ModulationGrid()
 {
 }
 
-void ModulationGrid::paint (juce::Graphics& g)
+void ModulationGrid::attachButtons(juce::AudioProcessorValueTreeState *pTree)
 {
-    /* This demo code just fills the component's background and
-       draws some placeholder text to get you started.
-
-       You should replace everything in this method with your own
-       drawing code..
-    */
-
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));   // clear the background
-
-    g.setColour (juce::Colours::grey);
-    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
-
-    g.setColour (juce::Colours::white);
-    g.setFont (14.0f);
-    g.drawText ("ModulationGrid", getLocalBounds(),
-                juce::Justification::centred, true);   // draw some placeholder text
+    int operatorCount = (int)buttons.size();
+    for(int set = 0; set < operatorCount; ++set)
+    {
+        std::vector<ModulationToggle> currentVector = buttons[set];
+        for(int button = 0; button < operatorCount; ++button)
+        {
+            ModulationToggle* currentButton = &currentVector[button];
+            currentButton->attach(pTree);
+        }
+    }
 }
 
 void ModulationGrid::resized()
 {
-    // This method is where you should set the bounds of any child
-    // components that your component contains..
-
+    int n = getWidth() / 6;
+    for(int source = 0; source < buttons.size(); ++source)
+    {
+        std::vector<ModulationToggle> buttonSet = buttons[source];
+        for(int dest = 0; dest < buttons.size(); ++dest)
+        {
+            ModulationToggle* thisButton = &buttonSet[dest];
+            thisButton->setBounds(n * source, n * source, n, n);
+        }
+    }
 }
