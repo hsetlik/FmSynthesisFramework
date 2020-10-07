@@ -33,7 +33,7 @@ FmSynthesisFrameworkAudioProcessorEditor::FmSynthesisFrameworkAudioProcessorEdit
     
     addAndMakeVisible(&modGrid);
     modGrid.attachButtons(&audioProcessor.tree);
-    setSize (800, 600);
+    setSize (1000, 600);
 }
 
 FmSynthesisFrameworkAudioProcessorEditor::~FmSynthesisFrameworkAudioProcessorEditor()

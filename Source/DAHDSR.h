@@ -21,7 +21,8 @@ class DAHDSR
         holdPhase,
         decayPhase,
         sustainPhase,
-        releasePhase
+        releasePhase,
+        noteOff
     };
 public:
     //functions
@@ -29,6 +30,7 @@ public:
     {
         trigger = false;
         samplesIntoPhase = 0;
+        currentPhase = noteOff;
     }
     ~DAHDSR() {}
     void triggerOn()
@@ -36,9 +38,11 @@ public:
         trigger = true;
         currentPhase = delayPhase;
     }
-    void triggerOff() {
+    void triggerOff()
+    {
         trigger = false;
         currentPhase = releasePhase;
+        samplesIntoPhase = 0;
     }
     //setters-- all time values are in ms
     void setSampleRate(double value) {sampleRate = value;}

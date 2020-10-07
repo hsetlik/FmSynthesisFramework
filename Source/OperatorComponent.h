@@ -48,11 +48,17 @@ private:
     OutputToggleButton outputButton;
     
     DelaySlider delaySlider;
+    EnvLabel delayLabel;
     AttackSlider attackSlider;
+    EnvLabel attackLabel;
     HoldSlider holdSlider;
+    EnvLabel holdLabel;
     DecaySlider decaySlider;
+    EnvLabel decayLabel;
     SustainSlider sustainSlider;
+    EnvLabel sustainLabel;
     ReleaseSlider releaseSlider;
+    EnvLabel releaseLabel;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OperatorComponent)
 };

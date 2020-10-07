@@ -29,6 +29,14 @@ public:
         buttonOffColor = color.blend(buttonOnColor, juce::Colours::black, 0.085);
     }
     ~ModulationToggle() {}
+    void paintButton(juce::Graphics& g, bool mouseOver, bool isMouseDown) override
+    {
+        g.setColour(buttonOffColor);
+        if(getToggleState())
+            g.setColour(buttonOnColor);
+        auto rect = getLocalBounds().reduced(3);
+        g.fillRect(rect);
+    }
     void attach(juce::AudioProcessorValueTreeState* pTree)
     {
         auto sString = juce::String(sourceOp);
