@@ -48,14 +48,15 @@ void ModulationGrid::attachButtons(juce::AudioProcessorValueTreeState *pTree)
 
 void ModulationGrid::resized()
 {
-    int n = getWidth() / 6;
+    auto bounds = getLocalBounds().reduced(10);
+    int n = bounds.getWidth() / 6;
     for(int source = 0; source < buttons.size(); ++source)
     {
         juce::OwnedArray<ModulationToggle>* array = buttons[source];
         for(int dest = 0; dest < buttons.size(); ++dest)
         {
             ModulationToggle* thisButton = array->getUnchecked(dest);
-            thisButton->setBounds(source * n, dest * n, n, n);
+            thisButton->setBounds((source * n) + 10, (dest * n) + 10, n, n);
         }
     }
 }

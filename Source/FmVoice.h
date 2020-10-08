@@ -88,15 +88,12 @@ public:
             auto sString = juce::String(source);
             for(int dest = 0; dest < operators.size(); ++dest)
             {
-                auto dString = juce::String(dest);
                 operators[dest]->modSources.clear();
-                auto paramToCheck = sString + "to" + dString + "Param";
-                std::atomic<float>* param = pTree->getRawParameterValue(paramToCheck);
-                bool modulationOn = (bool) *param;
-                if(modulationOn)
-                {
+                auto dString = juce::String(dest);
+                auto checkParam = sString + "to" + dString + "Param";
+                auto value = pTree->getRawParameterValue(checkParam);
+                if(value != 0)
                     operators[dest]->addModSource(operators[source]);
-                }
             }
         }
     }
