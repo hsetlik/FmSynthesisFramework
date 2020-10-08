@@ -19,14 +19,14 @@
 class ModulationToggle : public juce::ShapeButton
 {
 public:
-    ModulationToggle(int source, int dest) : juce::ShapeButton("modButton", color.blend(buttonOnColor, juce::Colours::black, 0.085), color.blend(buttonOnColor, juce::Colours::black, 0.085), color.RGBColor(226, 76, 86)),
+    ModulationToggle(int source, int dest) : juce::ShapeButton("modButton", toggleColors.blend(buttonOnColor, juce::Colours::black, 0.085), toggleColors.blend(buttonOnColor, juce::Colours::black, 0.085), toggleColors.RGBColor(226, 76, 86)),
     sourceOp(source),
     destOp(dest)
     {
         shouldUseOnColours(true);
         setClickingTogglesState(true);
-        buttonOnColor = color.RGBColor(226, 76, 86);
-        buttonOffColor = color.blend(buttonOnColor, juce::Colours::black, 0.085);
+        buttonOnColor = toggleColors.RGBColor(226, 76, 86);
+        buttonOffColor = toggleColors.blend(buttonOnColor, juce::Colours::black, 0.085);
     }
     ~ModulationToggle() {}
     void paintButton(juce::Graphics& g, bool mouseOver, bool isMouseDown) override
@@ -48,7 +48,7 @@ public:
     int destOp;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> attachment;
 private:
-    ColorCreator color;
+    ColorCreator toggleColors;
     juce::Colour buttonOnColor;
     juce::Colour buttonOffColor;
 };
