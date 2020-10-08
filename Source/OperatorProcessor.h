@@ -18,7 +18,10 @@ class Operator
 public:
     Operator(int opIndex) :  ratio(1.0f), index(opIndex)
     {
-        //isAudible = false;
+        for(int i = 0; i < 6; ++i)
+        {
+            takesFrom[i] = false;
+        }
     }
     ~Operator() {}
     void addModSource(Operator* newSource)
@@ -34,7 +37,6 @@ public:
             if(removeIndex == checkIndex)
             {
                 modSources.erase(modSources.begin() + i);
-                break;
             }
         }
     }
@@ -63,6 +65,7 @@ public:
     bool isAudible = false;
     DAHDSR envelope;
     std::vector<Operator*> modSources;
+    bool takesFrom[6];
 private:
     float ratio;
     float fundamental;

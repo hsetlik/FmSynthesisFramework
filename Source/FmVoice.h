@@ -94,6 +94,8 @@ public:
                 auto value = pTree->getRawParameterValue(checkParam);
                 if(value != 0)
                     operators[dest]->addModSource(operators[source]);
+                else
+                    operators[dest]->removeModSource(operators[source]);
             }
         }
     }

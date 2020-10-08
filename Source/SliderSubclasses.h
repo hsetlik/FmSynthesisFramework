@@ -232,10 +232,10 @@ public:
     {
         setClickingTogglesState(true);
         setButtonText("Output");
-        onColor = color.RGBColor(226, 76, 86);
-        offColor = color.blend(onColor, juce::Colours::black, 0.085f);
-        setColour(juce::TextButton::buttonColourId, offColor);
-        setColour(juce::TextButton::buttonOnColourId, onColor);
+        outputOnColor = color.RGBColor(226, 76, 86);
+        outputOffColor = color.blend(outputOnColor, juce::Colours::black, 0.085f);
+        setColour(juce::TextButton::buttonColourId, outputOffColor);
+        setColour(juce::TextButton::buttonOnColourId, outputOnColor);
     }
     ~OutputToggleButton() {}
     void attach(juce::AudioProcessorValueTreeState* pTree)
@@ -248,8 +248,8 @@ public:
     int opIndex;
 private:
     ColorCreator color;
-    juce::Colour onColor;
-    juce::Colour offColor;
+    juce::Colour outputOnColor;
+    juce::Colour outputOffColor;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> attachment;
 };
 
