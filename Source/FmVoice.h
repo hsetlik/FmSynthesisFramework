@@ -55,6 +55,7 @@ public:
         if(velocity == 0)
             clearCurrentNote();
     }
+    void setRoutingFromGrid(juce::AudioProcessorValueTreeState* pTree);
     void setParameters
                      (
                      int operatorIndex,
@@ -81,24 +82,7 @@ public:
         operators[operatorIndex]->envelope.setSustain(*envSustain);
         operators[operatorIndex]->envelope.setRelease(*envRelease);
     }
-    void setAlgorithm(juce::AudioProcessorValueTreeState* pTree)
-    {
-        for(int source = 0; source < operators.size(); ++source)
-        {
-            auto sString = juce::String(source);
-            for(int dest = 0; dest < operators.size(); ++dest)
-            {
-                operators[dest]->modSources.clear();
-                auto dString = juce::String(dest);
-                auto checkParam = sString + "to" + dString + "Param";
-                auto value = pTree->getRawParameterValue(checkParam);
-                if(value != 0)
-                    operators[dest]->addModSource(operators[source]);
-                else
-                    operators[dest]->removeModSource(operators[source]);
-            }
-        }
-    }
+    void applyModulations();
     void setSampleRate(double newRate)
     {
         for(int i = 0; i < operators.size(); ++i)
@@ -120,6 +104,7 @@ public:
     {
         
     }
+    bool routingParams[6][6];
     int operatorCount;
     float fundamental;
     juce::OwnedArray<Operator> operators;

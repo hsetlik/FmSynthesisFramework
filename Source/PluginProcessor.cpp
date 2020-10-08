@@ -200,7 +200,7 @@ void FmSynthesisFrameworkAudioProcessor::processBlock (juce::AudioBuffer<float>&
     {
         if((thisVoice =  dynamic_cast<FmVoice*>(synth.getVoice(voice))))
         {
-            thisVoice->setAlgorithm(&tree);
+            thisVoice->setRoutingFromGrid(&tree);
             for(int i = 0; i < numOperators; ++i)
             {
                 auto iStr = juce::String(i);

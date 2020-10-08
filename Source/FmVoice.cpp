@@ -22,6 +22,7 @@ void FmVoice::renderNextBlock(juce::AudioBuffer<float> &outputBuffer, int startS
 {
     for(int i = 0; i < numSamples; ++i)
     {
+        applyModulations();
         float sum = 0.0f;
         for(int o = 0; o < operatorCount; ++o)
         {
@@ -34,5 +35,43 @@ void FmVoice::renderNextBlock(juce::AudioBuffer<float> &outputBuffer, int startS
             outputBuffer.addSample(channel, startSample, sum);
         }
         ++startSample;
+    }
+}
+
+void FmVoice::setRoutingFromGrid(juce::AudioProcessorValueTreeState *pTree)
+{
+    for(int source = 0; source < operatorCount; ++source)
+    {
+        auto sString = juce::String(source);
+        for(int dest = 0; dest < operatorCount; ++dest)
+        {
+            auto dString = juce::String(dest);
+            auto str = sString + "to" + dString + "Param";
+            std::atomic<float>* value = pTree->getRawParameterValue(str);
+            if(*value)
+                routingParams[source][dest] = true;
+            else
+                routingParams[source][dest] = false;
+        }
+    }
+}
+
+void FmVoice::applyModulations()
+{
+    for(int i = 0; i < operatorCount; ++i)
+    {
+        operators[i]->cleanOffset();
+    }
+    for(int source = 0; source < operatorCount; ++source)
+    {
+        Operator* sourceOp = operators[source];
+        for(int dest = 0; dest < operatorCount; ++dest)
+        {
+            Operator* destOp = operators[dest];
+            if(routingParams[source][dest])
+            {
+                destOp->modOffset += sourceOp->lastOutputSample;
+            }
+        }
     }
 }
