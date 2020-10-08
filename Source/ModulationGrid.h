@@ -59,10 +59,11 @@ public:
     ModulationGrid(int numOperators);
     ~ModulationGrid() override;
     void attachButtons(juce::AudioProcessorValueTreeState* pTree);
-    //void paint (juce::Graphics&) override;
+    void paint (juce::Graphics& g) override;
     void resized() override;
 
 private:
+    ColorCreator gridColors;
     juce::OwnedArray<juce::OwnedArray<ModulationToggle>> buttons;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ModulationGrid)
 };

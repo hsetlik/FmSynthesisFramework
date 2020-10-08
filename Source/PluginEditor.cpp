@@ -42,6 +42,8 @@ FmSynthesisFrameworkAudioProcessorEditor::~FmSynthesisFrameworkAudioProcessorEdi
 //==============================================================================
 void FmSynthesisFrameworkAudioProcessorEditor::paint(juce::Graphics &g)
 {
+    auto background = color.RGBColor(37, 50, 53);
+    g.fillAll(background);
     for(int i = 0; i < 6; ++i)
     {
         auto rect = allOps[i]->getBounds();
