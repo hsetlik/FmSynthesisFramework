@@ -13,6 +13,7 @@
 
 //==============================================================================
 OperatorComponent::OperatorComponent(int index, juce::AudioProcessorValueTreeState* pTree) :
+envGraph(&delaySlider, &attackSlider, &holdSlider, &decaySlider, &sustainSlider, &releaseSlider),
 levelSlider(index),
 ratioSlider(index),
 modIndexSlider(index),
@@ -41,6 +42,8 @@ releaseLabel(&releaseSlider, "ms")
     addAndMakeVisible(&decaySlider);
     addAndMakeVisible(&sustainSlider);
     addAndMakeVisible(&releaseSlider);
+    
+    addAndMakeVisible(&envGraph);
     
     addAndMakeVisible(&delayLabel);
     addAndMakeVisible(&attackLabel);
@@ -71,9 +74,10 @@ void OperatorComponent::resized()
     sustainLabel.setBounds(16.5 * n, 27 * n, 4 * n, 2 * n);
     releaseLabel.setBounds(20.5 * n, 27 * n, 4 * n, 2 * n);
     
-    
+    envGraph.setBounds(n, 13 * n, 15 * n, 10 * n);
+
     outputButton.setBounds(16 * n, n, 7 * n, 3 * n);
     levelSlider.setBounds(19 * n, 4.5 * n, 4 * n, 12 * n);
-    modIndexSlider.setBounds(6 * n, 12 * n, 4 * n, 7 * n);
-    ratioSlider.setBounds(11 * n, 12 * n, 4 * n, 7 * n);
+    modIndexSlider.setBounds(6 * n, 4 * n, 4 * n, 7 * n);
+    ratioSlider.setBounds(11 * n, 4 * n, 4 * n, 7 * n);
 }

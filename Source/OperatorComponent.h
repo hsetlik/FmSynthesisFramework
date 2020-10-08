@@ -12,6 +12,7 @@
 
 #include <JuceHeader.h>
 #include "SliderSubclasses.h"
+#include "DAHDSRGraph.h"
 #include "RGBColor.h"
 
 //==============================================================================
@@ -40,6 +41,7 @@ public:
     void resized() override;
     int opIndex;
 private:
+    DAHDSRGraph envGraph;
     ColorCreator color;
     juce::Colour background;
     LevelSlider levelSlider;
