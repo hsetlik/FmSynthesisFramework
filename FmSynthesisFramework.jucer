@@ -9,6 +9,13 @@
       <GROUP id="{C27B64CB-BF60-B9C7-D46A-3CFED5EB77EC}" name="Components">
         <FILE id="a76oLu" name="DAHDSRGraph.cpp" compile="1" resource="0" file="Source/DAHDSRGraph.cpp"/>
         <FILE id="vmaUoS" name="DAHDSRGraph.h" compile="0" resource="0" file="Source/DAHDSRGraph.h"/>
+        <FILE id="xXINWv" name="LfoComponent.cpp" compile="1" resource="0"
+              file="Source/LfoComponent.cpp"/>
+        <FILE id="h7IClx" name="LfoComponent.h" compile="0" resource="0" file="Source/LfoComponent.h"/>
+        <FILE id="FTNsgx" name="LfoGroupComponent.cpp" compile="1" resource="0"
+              file="Source/LfoGroupComponent.cpp"/>
+        <FILE id="SfweRq" name="LfoGroupComponent.h" compile="0" resource="0"
+              file="Source/LfoGroupComponent.h"/>
         <FILE id="jTiLH2" name="ModulationGrid.cpp" compile="1" resource="0"
               file="Source/ModulationGrid.cpp"/>
         <FILE id="Nj8BiH" name="ModulationGrid.h" compile="0" resource="0"
