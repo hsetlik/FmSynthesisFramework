@@ -53,14 +53,14 @@ void DAHDSRGraph::paint(juce::Graphics &g)
     g.fillAll(bgColor);
     
     auto area = getLocalBounds().toFloat();
-    
+    auto timeTotal = fDelay + fAttack + fHold + fDecay + fRelease;
     juce::Path trace;
     trace.startNewSubPath(0.0f, area.getHeight());
     trace.lineTo(fDelay, area.getHeight());
     trace.lineTo(fDelay + fAttack, 0.0f);
     trace.lineTo(fDelay + fAttack + fHold, 0.0f);
     auto sustainY = (1.0f - fSustain) * area.getHeight();
-    auto timeTotal = fDelay + fAttack + fHold + fDecay + fRelease;
+    
     auto sustainLength = timeTotal * 0.25;
     trace.lineTo(fDelay + fAttack + fHold + fDecay, sustainY);
     trace.lineTo(fDelay + fAttack + fHold + fDecay + sustainLength, sustainY);

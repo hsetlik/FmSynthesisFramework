@@ -9,6 +9,8 @@ class EnvLabel : public juce::Label, public juce::Slider::Listener
 public:
     EnvLabel(juce::Slider* sliderToAttach, juce::String suff) : attachSlider(sliderToAttach), suffix(suff)
     {
+        auto vcrFont = juce::Font("WW Digital", 8.0f, 0);
+        getLookAndFeel().setDefaultSansSerifTypeface(getLookAndFeel().getTypefaceForFont(vcrFont));
         attachSlider->addListener(this);
         setJustificationType(juce::Justification::centred);
         setMinimumHorizontalScale(0.25);
@@ -16,11 +18,11 @@ public:
         auto valueToDraw = attachSlider->getValue();
         auto fullString = juce::String(valueToDraw);
         if(valueToDraw < 100.0f)
-            tempText = fullString.substring(0, 3);
+            tempText = fullString.substring(0, 2);
         else if(valueToDraw < 1000.0f)
-            tempText = fullString.substring(0, 4);
+            tempText = fullString.substring(0, 3);
         else
-            tempText = fullString.substring(0, 5);
+            tempText = fullString.substring(0, 4);
         auto labelText = tempText +  suffix;
         setText(labelText, juce::dontSendNotification);
     }
