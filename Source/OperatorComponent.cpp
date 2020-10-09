@@ -13,6 +13,7 @@
 
 //==============================================================================
 OperatorComponent::OperatorComponent(int index, juce::AudioProcessorValueTreeState* pTree) :
+opIndex(index),
 envGraph(&delaySlider, &attackSlider, &holdSlider, &decaySlider, &sustainSlider, &releaseSlider),
 levelSlider(index),
 ratioSlider(index),
@@ -80,4 +81,14 @@ void OperatorComponent::resized()
     levelSlider.setBounds(19 * n, 4.5 * n, 4 * n, 12 * n);
     modIndexSlider.setBounds(6 * n, 4 * n, 4 * n, 7 * n);
     ratioSlider.setBounds(11 * n, 4 * n, 4 * n, 7 * n);
+}
+
+void OperatorComponent::paint(juce::Graphics &g)
+{
+    int n = getWidth() / 24;
+    g.setFont(juce::Font("VCR OSD Mono", 15.0f, 0));
+    g.setColour(juce::Colours::white);
+    auto nameRect = juce::Rectangle<int> {n / 2, n / 4, 10 * n, 6 * n};
+    auto labelText = "Operator " + juce::String(opIndex + 1);
+    g.drawText(labelText, nameRect, juce::Justification::centred);
 }

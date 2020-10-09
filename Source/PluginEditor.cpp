@@ -18,17 +18,17 @@ FmSynthesisFrameworkAudioProcessorEditor::FmSynthesisFrameworkAudioProcessorEdit
         allOps.add(new OperatorComponent(i, &audioProcessor.tree));
         addAndMakeVisible(*allOps.getLast());
     }
-    auto color0 = color.RGBColor(131, 189, 161);
+    auto color0 = color.RGBColor(19, 48, 101);
     opColors.push_back(color0);
-    auto color1 = color.RGBColor(131, 169, 181);
+    auto color1 = color.RGBColor(87, 189, 233);
     opColors.push_back(color1);
-    auto color2 = color.RGBColor(87, 110, 117);
+    auto color2 = color.RGBColor(43, 109, 229);
     opColors.push_back(color2);
-    auto color3 = color.RGBColor(88, 89, 84);
+    auto color3 = color.RGBColor(32, 84, 179);
     opColors.push_back(color3);
-    auto color4 = color.RGBColor(37, 50, 53);
+    auto color4 = color.RGBColor(25, 52, 102);
     opColors.push_back(color4);
-    auto color5 = color.RGBColor(107, 200, 185);
+    auto color5 = color.RGBColor(0, 121, 215);
     opColors.push_back(color5);
     
     addAndMakeVisible(&modGrid);

@@ -39,6 +39,7 @@ public:
         releaseSlider.attach(pTree);
     }
     void resized() override;
+    void paint(juce::Graphics& g) override;
     int opIndex;
 private:
     DAHDSRGraph envGraph;
