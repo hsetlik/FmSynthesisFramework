@@ -53,26 +53,20 @@ void DAHDSRGraph::paint(juce::Graphics &g)
     g.fillAll(bgColor);
     
     auto area = getLocalBounds().toFloat();
-    auto eDelay = exp(fDelay) * area.getWidth();
-    printf("eDelay: %f\n", eDelay);
-    printf("fDelay: %f\n", fDelay);
-    auto eAttack = exp(fAttack) * area.getWidth();
-    auto eHold = exp(fHold) * area.getWidth();
-    auto eDecay = exp(fDecay) * area.getWidth();
-    auto eRelease = exp(fRelease) * area.getWidth();
+    
     juce::Path trace;
     trace.startNewSubPath(0.0f, area.getHeight());
-    trace.lineTo(eDelay, area.getHeight());
-    trace.lineTo(eDelay + eAttack, 0.0f);
-    trace.lineTo(eDelay + eAttack + eHold, 0.0f);
+    trace.lineTo(fDelay, area.getHeight());
+    trace.lineTo(fDelay + fAttack, 0.0f);
+    trace.lineTo(fDelay + fAttack + fHold, 0.0f);
     auto sustainY = (1.0f - fSustain) * area.getHeight();
-    auto timeTotal = eDelay + eAttack + eHold + eDecay + eRelease;
+    auto timeTotal = fDelay + fAttack + fHold + fDecay + fRelease;
     auto sustainLength = timeTotal * 0.25;
-    trace.lineTo(eDelay + eAttack + eHold + eDecay, sustainY);
-    trace.lineTo(eDelay + eAttack + eHold + eDecay + sustainLength, sustainY);
+    trace.lineTo(fDelay + fAttack + fHold + fDecay, sustainY);
+    trace.lineTo(fDelay + fAttack + fHold + fDecay + sustainLength, sustainY);
     trace.lineTo(timeTotal + sustainLength, area.getHeight());
     trace.closeSubPath();
-    trace.scaleToFit(0.0f, 0.0f, area.getWidth(), area.getHeight(), false);
+    trace.scaleToFit(0.0f, 5.0f, area.getWidth(), (area.getHeight() - 5.0f), false);
     
     auto stroke = juce::PathStrokeType(1.0f);
     g.setColour(traceColor);
