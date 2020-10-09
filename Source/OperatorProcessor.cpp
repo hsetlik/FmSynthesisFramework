@@ -19,4 +19,19 @@ float Operator::sample(float fundamental)
     return lastOutputSample;
 }
 
+void Operator::applyLfoMod(int targetId, float value)
+{
+    if(targetId == (3 * index) + 2)
+    {
+        ratio += value;
+    }
+    else if (targetId == (3 * index) + 3)
+    {
+        modIndex += value;
+    }
+    else if(targetId == (3 * index) + 4)
+    {
+        level += value;
+    }
+}
 

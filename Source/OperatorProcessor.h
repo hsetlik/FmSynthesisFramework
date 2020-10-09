@@ -12,12 +12,14 @@
 #include <JuceHeader.h>
 #include "maximilian.h"
 #include "DAHDSR.h"
+#include "LfoProcessor.h"
 
 class Operator
 {
 public:
     Operator(int opIndex) :  ratio(1.0f), index(opIndex)
     {
+        
     }
     ~Operator() {}
     void setRatio(float newRatio)
@@ -44,15 +46,20 @@ public:
     {
         isAudible = shouldBeAudible;
     }
+    void applyLfoMod(int targetId, float value);
     float sample(float fundamental);
     float lastOutputSample;
     bool isAudible = false;
     DAHDSR envelope;
     float modOffset;
 private:
+    
     float ratio;
     float modIndex;
     float level;
     int index;
     maxiOsc osc;
+    const int ratioId = (3 * index) + 2;
+    const int modIndexId = (3 * index) + 3;
+    const int levelId = (3 * index) + 4;
 };

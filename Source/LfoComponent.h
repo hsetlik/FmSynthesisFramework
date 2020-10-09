@@ -19,6 +19,7 @@ public:
     LfoComponent(int index);
     ~LfoComponent() {}
     void attachAll(juce::AudioProcessorValueTreeState* tree);
+    void resized() override;
 private:
     //data
     int lfoIndex;

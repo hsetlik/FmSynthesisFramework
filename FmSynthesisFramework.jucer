@@ -30,6 +30,9 @@
       <GROUP id="{82ABCC36-49EE-AAF9-7CF5-AC9B8B93190C}" name="ModulatorProcessors">
         <FILE id="ne77kn" name="DAHDSR.cpp" compile="1" resource="0" file="Source/DAHDSR.cpp"/>
         <FILE id="Kb4tNe" name="DAHDSR.h" compile="0" resource="0" file="Source/DAHDSR.h"/>
+        <FILE id="dVVOQe" name="LfoProcessor.cpp" compile="1" resource="0"
+              file="Source/LfoProcessor.cpp"/>
+        <FILE id="xJRsSb" name="LfoProcessor.h" compile="0" resource="0" file="Source/LfoProcessor.h"/>
       </GROUP>
       <GROUP id="{D4DE1F11-DC7B-53D2-4DEA-605E5F253CE5}" name="WaveProcessing">
         <FILE id="dpSjwc" name="FmVoice.cpp" compile="1" resource="0" file="Source/FmVoice.cpp"/>

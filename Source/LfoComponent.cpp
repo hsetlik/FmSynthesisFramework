@@ -23,19 +23,50 @@ LfoComponent::LfoComponent(int index) : lfoIndex(index)
     levelSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 45, 15);
     
     addAndMakeVisible(&waveSelector);
-    waveSelector.addItem("None", 1);
+    addAndMakeVisible(&targetSelector);
+    
+    targetSelector.addItem("No target", 1);
     for(int i = 0; i < 6; ++i)
     {
         auto iStr = juce::String(i + 1);
         auto opRatio = "Operator " + iStr + " ratio";
         auto opModIndex = "Operator " + iStr + "mod index";
         auto opLevel = "Operator " + iStr + " level";
-        waveSelector.addItem(opRatio, i + 2);
-        waveSelector.addItem(opModIndex, i + 3);
-        waveSelector.addItem(opLevel, i + 4);
+        targetSelector.addItem(opRatio, i + 2);
+        targetSelector.addItem(opModIndex, i + 3);
+        targetSelector.addItem(opLevel, i + 4);
     }
     
-    addAndMakeVisible(&targetSelector);
-    
-    
+    waveSelector.addItem("Sine", 1);
+    waveSelector.addItem("Triangle", 2);
+    waveSelector.addItem("Saw", 3);
+    waveSelector.addItem("Square", 4);
+    waveSelector.addItem("Random", 5);
 }
+
+void LfoComponent::attachAll(juce::AudioProcessorValueTreeState *pTree)
+{
+    auto iStr = juce::String(lfoIndex);
+    auto rateId = "lfoRateParam" + iStr;
+    rateAttach.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*pTree, rateId, rateSlider));
+    
+    auto levelId = "lfoLevelParam" + iStr;
+    levelAttach.reset(new juce::AudioProcessorValueTreeState::SliderAttachment(*pTree, levelId, levelSlider));
+    
+    auto waveId = "lfoWaveParam" + iStr;
+    waveTypeAttach.reset(new juce::AudioProcessorValueTreeState::ComboBoxAttachment(*pTree, waveId, waveSelector));
+    
+    auto targetId = "lfoTargetParam" + iStr;
+    targetAttach.reset(new juce::AudioProcessorValueTreeState::ComboBoxAttachment(*pTree, targetId, targetSelector));
+}
+
+void LfoComponent::resized()
+{
+    int n = getWidth() / 24;
+    levelSlider.setBounds(n, n / 2, 5 * n, 7 * n);
+    rateSlider.setBounds(n, 10 * n, 5 * n, 7 * n);
+    
+    waveSelector.setBounds(7 * n, n / 2, 10 * n, 2 * n);
+    targetSelector.setBounds(7 * n, 10 * n, 10 * n, 2 * n);
+}
+

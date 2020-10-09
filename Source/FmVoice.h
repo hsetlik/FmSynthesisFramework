@@ -55,6 +55,22 @@ public:
         if(velocity == 0)
             clearCurrentNote();
     }
+    void updateLfoTarget(std::atomic<float>* value, int lfo)
+    {
+        lfoBank[lfo]->currentTarget = *value;
+    }
+    void updateLfoRate(std::atomic<float>* value, int lfo)
+    {
+        lfoBank[lfo]->currentRate = *value;
+    }
+    void updateLfoWave(std::atomic<float>* value, int lfo)
+    {
+        lfoBank[lfo]->currentWaveType = *value;
+    }
+    void updateLfoLevel(std::atomic<float>* value, int lfo)
+    {
+        lfoBank[lfo]->currentLevel = *value;
+    }
     void setRoutingFromGrid(juce::AudioProcessorValueTreeState* pTree);
     void setParameters
                      (
@@ -107,5 +123,6 @@ public:
     bool routingParams[6][6];
     int operatorCount;
     float fundamental;
+    juce::OwnedArray<LfoProcessor> lfoBank;
     juce::OwnedArray<Operator> operators;
 };

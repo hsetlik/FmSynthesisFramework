@@ -16,6 +16,10 @@ FmVoice::FmVoice(int numOperators) :  operatorCount(numOperators), fundamental(0
     {
         operators.add(new Operator(i));
     }
+    for(int n = 0; n < totalLfos; ++n)
+    {
+        lfoBank.add(new LfoProcessor(n));
+    }
 }
 
 void FmVoice::renderNextBlock(juce::AudioBuffer<float> &outputBuffer, int startSample, int numSamples)

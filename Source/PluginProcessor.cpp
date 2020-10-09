@@ -62,6 +62,44 @@ juce::AudioProcessorValueTreeState::ParameterLayout createLayout(int numOperator
             layout.add(std::make_unique<juce::AudioParameterBool>(modId, modName, false));
         }
     }
+    for(int i = 0; i < 4; ++i)
+    {
+        auto iStr = juce::String(i);
+        auto rateId = "lfoRateParam" + iStr;
+        auto rateName = "LFO " + iStr + " Rate";
+        auto levelId = "lfoLevelParam" + iStr;
+        auto levelName = "LFO " + iStr + " Level";
+        auto waveId = "lfoWaveParam" + iStr;
+        auto waveName = "LFO " + iStr + " Waveform";
+        auto targetId = "lfoTargetParam" + iStr;
+        auto targetName = "LFO " + iStr + " Target";
+        
+        layout.add(std::make_unique<juce::AudioParameterFloat>(rateId, rateName, 0.0f, 20.0f , 1.0f));
+        layout.add(std::make_unique<juce::AudioParameterFloat>(levelId, levelName, 0.0f, 1.0f , 1.0f));
+        
+        juce::StringArray targets;
+        targets.add("No target");
+        for(int n = 0; n < numOperators; ++n)
+        {
+            auto nStr = juce::String(n + 1);
+            auto opRatio = "Operator " + nStr + " ratio";
+            auto opModIndex = "Operator " + nStr + "mod index";
+            auto opLevel = "Operator " + nStr + " level";
+            
+            targets.add(opRatio);
+            targets.add(opModIndex);
+            targets.add(opLevel);
+        }
+        juce::StringArray waveTypes;
+        waveTypes.add("Sine");
+        waveTypes.add("Triangle");
+        waveTypes.add("Square");
+        waveTypes.add("Saw");
+        waveTypes.add("Random");
+        
+        layout.add(std::make_unique<juce::AudioParameterChoice>(targetId, targetName, targets, 0));
+        layout.add(std::make_unique<juce::AudioParameterChoice>(waveId, waveName, waveTypes, 0));
+    }
     return layout;
 }
 
@@ -201,6 +239,19 @@ void FmSynthesisFrameworkAudioProcessor::processBlock (juce::AudioBuffer<float>&
         if((thisVoice =  dynamic_cast<FmVoice*>(synth.getVoice(voice))))
         {
             thisVoice->setRoutingFromGrid(&tree);
+            for(int n = 0; n < 4; ++n)
+            {
+                auto nStr = juce::String(n);
+                auto rateParam = "lfoRateParam" + nStr;
+                auto levelParam = "lfoLevelParam" + nStr;
+                auto waveParam = "lfoWaveParam" + nStr;
+                auto targetParam = "lfoTargetParam" + nStr;
+                
+                thisVoice->updateLfoRate(tree.getRawParameterValue(rateParam), n);
+                thisVoice->updateLfoLevel(tree.getRawParameterValue(levelParam), n);
+                thisVoice->updateLfoWave(tree.getRawParameterValue(waveParam), n);
+                thisVoice->updateLfoTarget(tree.getRawParameterValue(targetParam), n);
+            }
             for(int i = 0; i < numOperators; ++i)
             {
                 auto iStr = juce::String(i);
