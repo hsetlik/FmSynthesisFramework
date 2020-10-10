@@ -32,10 +32,10 @@
     4        : level     : 16
     5        : ratio     : 17
     5        : modIndex  : 18
-    5        : level     : 17
+    5        : level     : 19
     ratioInt = 3 * opIndex + 2
     modIndex int = 3 * opIndex + 3
-    levelInt = 3 * opIndex + 3
+    levelInt = 3 * opIndex + 4
  */
 
 const int totalLfos = 4;

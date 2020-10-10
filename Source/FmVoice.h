@@ -71,6 +71,7 @@ public:
     {
         lfoBank[lfo]->currentLevel = *value;
     }
+    void applyLfo(int index);
     void setRoutingFromGrid(juce::AudioProcessorValueTreeState* pTree);
     void setParameters
                      (

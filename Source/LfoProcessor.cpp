@@ -19,26 +19,26 @@ float LfoProcessor::getSampleValue()
     float rawValue;
     switch(currentWaveType)
     {
-        case 1:
+        case 0:
         {
             rawValue = (lfo_osc.sinebuf(currentRate) / 2) + 0.5;
         }
-        case 2:
+        case 1:
         {
             rawValue = (lfo_osc.triangle(currentRate) / 2) + 0.5;
         }
-        case 3:
+        case 2:
         {
             rawValue = (lfo_osc.square(currentRate) / 2) + 0.5;
         }
-        case 4:
+        case 3:
         {
             rawValue = (lfo_osc.saw(currentRate) / 2) + 0.5;
         }
-        case 5:
+        case 4:
         {
             rawValue = (float) rand() / RAND_MAX;
         }
     }
-    return rawValue;
+    return rawValue * currentLevel;
 };

@@ -46,7 +46,18 @@ public:
     {
         isAudible = shouldBeAudible;
     }
-    void applyLfoMod(int targetId, float value);
+    float getRatio()
+    {
+        return ratio;
+    }
+    float getLevel()
+    {
+        return level;
+    }
+    float getModIndex()
+    {
+        return modIndex;
+    }
     float sample(float fundamental);
     float lastOutputSample;
     bool isAudible = false;
