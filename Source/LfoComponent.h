@@ -11,6 +11,7 @@
 #pragma once
 #include <JuceHeader.h>
 #include "maximilian.h"
+#include "RGBColor.h"
 
 class LfoComponent : public juce::Component
 {

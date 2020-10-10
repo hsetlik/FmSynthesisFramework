@@ -33,6 +33,8 @@ FmSynthesisFrameworkAudioProcessorEditor::FmSynthesisFrameworkAudioProcessorEdit
     
     addAndMakeVisible(&modGrid);
     modGrid.attachButtons(&audioProcessor.tree);
+    addAndMakeVisible(&lfoGroup);
+    lfoGroup.attachChildren(&audioProcessor.tree);
     setSize (1000, 600);
 }
 
@@ -63,4 +65,5 @@ void FmSynthesisFrameworkAudioProcessorEditor::resized()
     allOps[4]->setBounds(w, h, w, h);
     allOps[5]->setBounds(2 * w, h, w, h);
     modGrid.setBounds(3 * w, 0, w, w);
+    lfoGroup.setBounds(3 * w, w, w, w);
 }

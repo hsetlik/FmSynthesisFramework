@@ -32,9 +32,9 @@ LfoComponent::LfoComponent(int index) : lfoIndex(index)
         auto opRatio = "Operator " + iStr + " ratio";
         auto opModIndex = "Operator " + iStr + "mod index";
         auto opLevel = "Operator " + iStr + " level";
-        targetSelector.addItem(opRatio, i + 2);
-        targetSelector.addItem(opModIndex, i + 3);
-        targetSelector.addItem(opLevel, i + 4);
+        targetSelector.addItem(opRatio, (3 * i) + 2);
+        targetSelector.addItem(opModIndex, (3 * i) + 3);
+        targetSelector.addItem(opLevel, (3 * i) + 4);
     }
     
     waveSelector.addItem("Sine", 1);
