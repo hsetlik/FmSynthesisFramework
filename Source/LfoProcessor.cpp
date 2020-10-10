@@ -11,7 +11,7 @@
 #include "LfoProcessor.h"
 LfoProcessor::LfoProcessor(int index) : lfoIndex(index)
 {
-    srand((unsigned) time(NULL));
+    
 }
 
 float LfoProcessor::getSampleValue()
@@ -41,7 +41,8 @@ float LfoProcessor::getSampleValue()
         }
         case 4:
         {
-            rawValue = (float) rand() / RAND_MAX;
+            int msCycle = floor(1000 / (currentRate + 0.0001));
+            rawValue = randOsc.sample(msCycle);
             break;
         }
     }

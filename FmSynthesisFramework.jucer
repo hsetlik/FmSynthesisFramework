@@ -33,6 +33,10 @@
         <FILE id="dVVOQe" name="LfoProcessor.cpp" compile="1" resource="0"
               file="Source/LfoProcessor.cpp"/>
         <FILE id="xJRsSb" name="LfoProcessor.h" compile="0" resource="0" file="Source/LfoProcessor.h"/>
+        <FILE id="tqiRdl" name="SampleAndHoldOscillator.cpp" compile="1" resource="0"
+              file="Source/SampleAndHoldOscillator.cpp"/>
+        <FILE id="veEYsL" name="SampleAndHoldOscillator.h" compile="0" resource="0"
+              file="Source/SampleAndHoldOscillator.h"/>
       </GROUP>
       <GROUP id="{D4DE1F11-DC7B-53D2-4DEA-605E5F253CE5}" name="WaveProcessing">
         <FILE id="dpSjwc" name="FmVoice.cpp" compile="1" resource="0" file="Source/FmVoice.cpp"/>

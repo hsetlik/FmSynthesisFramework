@@ -11,6 +11,7 @@
 #pragma once
 #include <JuceHeader.h>
 #include "maximilian.h"
+#include "SampleAndHoldOscillator.h"
 //const to set the synth's total availible number of LFOs
 /* GUIDE TO TARGET NUMBERS
     Operator : Parameter : id
@@ -54,5 +55,6 @@ public:
     float currentLevel;
 private:
     maxiOsc lfo_osc;
+    RandomOscillator randOsc;
     int lfoIndex;
 };
