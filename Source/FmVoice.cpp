@@ -87,54 +87,10 @@ void FmVoice::applyModulations()
 void FmVoice::applyLfo(int index)
 {
     LfoProcessor* thisLfo = lfoBank[index];
-    float rawVal = thisLfo->getSampleValue();
-    int thisTarget = thisLfo->currentTarget;
-    thisTarget += 1;
-    juce::String targetType;
-    int targetOp;
-    if(thisTarget > 2)
+    int target = thisLfo->currentTarget;
+    float rawValue = thisLfo->getSampleValue();
+    if(target > 0)
     {
-        //determining the operator index
-        if(thisTarget < 5)
-            targetOp = 0;
-        else if(thisTarget < 8)
-            targetOp = 1;
-        else if(thisTarget < 11)
-            targetOp = 2;
-        else if(thisTarget < 14)
-            targetOp = 3;
-        else if(thisTarget < 17)
-            targetOp = 4;
-        else if(thisTarget < 20)
-            targetOp = 5;
-        
-        //determining the destination type
-        if(thisTarget % 3 ==0)
-        {
-            targetType = "modIndex";
-            auto preMod = operators[targetOp]->getModIndex();
-            auto maxDelta = 200.0f - preMod;
-            auto modDelta = maxDelta * rawVal;
-            auto postMod = preMod + modDelta;
-            operators[targetOp]->setModIndex(postMod);
-        }
-        else if(thisTarget % 3 == 1)
-        {
-            targetType = "level";
-            auto preMod = operators[targetOp]->getLevel();
-            auto maxDelta = 1.0f - preMod;
-            auto modDelta = maxDelta * rawVal;
-            auto postMod = preMod + modDelta;
-            operators[targetOp]->setLevel(postMod);
-        }
-        else if(thisTarget % 3 == 2)
-        {
-            targetType = "ratio";
-            auto preMod = operators[targetOp]->getRatio();
-            auto maxDelta = 10.0f - preMod;
-            auto modDelta = maxDelta * rawVal;
-            auto postMod = preMod +  modDelta;
-            operators[targetOp]->setRatio(postMod);
-        }
+        operators[target - 1]->setAmpMod((1.0f + rawValue) / 2.0f);
     }
 }

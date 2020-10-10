@@ -29,12 +29,8 @@ LfoComponent::LfoComponent(int index) : lfoIndex(index)
     for(int i = 0; i < 6; ++i)
     {
         auto iStr = juce::String(i + 1);
-        auto opRatio = "Operator " + iStr + " ratio";
-        auto opModIndex = "Operator " + iStr + "mod index";
         auto opLevel = "Operator " + iStr + " level";
-        targetSelector.addItem(opRatio, (3 * i) + 2);
-        targetSelector.addItem(opModIndex, (3 * i) + 3);
-        targetSelector.addItem(opLevel, (3 * i) + 4);
+        targetSelector.addItem(opLevel, i + 2);
     }
     
     waveSelector.addItem("Sine", 1);

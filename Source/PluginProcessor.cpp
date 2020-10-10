@@ -82,12 +82,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout createLayout(int numOperator
         for(int n = 0; n < numOperators; ++n)
         {
             auto nStr = juce::String(n + 1);
-            auto opRatio = "Operator " + nStr + " ratio";
-            auto opModIndex = "Operator " + nStr + "mod index";
             auto opLevel = "Operator " + nStr + " level";
-            
-            targets.add(opRatio);
-            targets.add(opModIndex);
             targets.add(opLevel);
         }
         juce::StringArray waveTypes;

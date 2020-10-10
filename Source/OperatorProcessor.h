@@ -58,13 +58,17 @@ public:
     {
         return modIndex;
     }
+    void setAmpMod(float newVal)
+    {
+        amplitudeMod = newVal;
+    }
     float sample(float fundamental);
     float lastOutputSample;
     bool isAudible = false;
     DAHDSR envelope;
     float modOffset;
 private:
-    
+    float amplitudeMod = 1.0f;
     float ratio;
     float modIndex;
     float level;
