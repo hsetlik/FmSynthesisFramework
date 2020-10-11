@@ -108,7 +108,7 @@ FmSynthesisFrameworkAudioProcessor::FmSynthesisFrameworkAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       ), tree(*this, nullptr, "synthParams", createLayout(numOperators))
+                       ),  tree(*this, nullptr, "synthParams", createLayout(numOperators)), patchName("patchName")
 #endif
 {
     for(int i = 0; i < numVoices; ++i)
@@ -117,12 +117,20 @@ FmSynthesisFrameworkAudioProcessor::FmSynthesisFrameworkAudioProcessor()
     }
     synth.clearSounds();
     synth.addSound(new FmSound());
+    
+    //creating an XmlElement to represent an empty patch
     tree.state = juce::ValueTree("defaultParams");
+    auto defaultValueTreeState = tree.copyState();
+    auto defaultXml = *defaultValueTreeState.createXml();
+    defaultXml.setAttribute(patchName, "Blank Patch");
+    
     auto appFolder = juce::File::getSpecialLocation(juce::File::userApplicationDataDirectory);
     appFolder.setAsCurrentWorkingDirectory();
     auto patchFolder = appFolder.getChildFile("HexFMPatches");
+    /*
     if(patchFolder.hasWriteAccess())
         printf("path is valid\n");
+     */
     if(patchFolder.exists() && patchFolder.isDirectory())
     {
         patchFolder.setAsCurrentWorkingDirectory();
@@ -132,8 +140,25 @@ FmSynthesisFrameworkAudioProcessor::FmSynthesisFrameworkAudioProcessor()
         patchFolder.createDirectory();
         patchFolder.setAsCurrentWorkingDirectory();
     }
-    patchFolder.revealToUser();
+    //add that blank patch Xml as a file to the patch folder
+    auto defaultPatchFile = patchFolder.getChildFile("blankPatchFile");
+    if(!defaultPatchFile.existsAsFile())
+    {
+        defaultPatchFile.create();
+        defaultXml.writeTo(defaultPatchFile);
+    }
     
+    //loading everything from the patch folder into the patchFiles array so we can access them
+    patchFiles = patchFolder.findChildFiles(juce::File::findFiles, true);
+    
+    //parsing each patch into an XmlElement and adding it to the patchXmlElements array
+    if(patchFiles.size() != 0)
+    {
+        for(int i = 0; i < patchFiles.size(); ++i)
+        {
+            patchXmlElements.add(*juce::XmlDocument::parse(patchFiles[i]));
+        }
+    }
 }
 
 FmSynthesisFrameworkAudioProcessor::~FmSynthesisFrameworkAudioProcessor()
