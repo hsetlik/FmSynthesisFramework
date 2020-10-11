@@ -108,7 +108,7 @@ FmSynthesisFrameworkAudioProcessor::FmSynthesisFrameworkAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       ), tree(*this, nullptr, "ALL PARAMETERS", createLayout(numOperators))
+                       ), tree(*this, nullptr, "synthParams", createLayout(numOperators))
 #endif
 {
     for(int i = 0; i < numVoices; ++i)
@@ -117,6 +117,23 @@ FmSynthesisFrameworkAudioProcessor::FmSynthesisFrameworkAudioProcessor()
     }
     synth.clearSounds();
     synth.addSound(new FmSound());
+    tree.state = juce::ValueTree("defaultParams");
+    auto appFolder = juce::File::getSpecialLocation(juce::File::userApplicationDataDirectory);
+    appFolder.setAsCurrentWorkingDirectory();
+    auto patchFolder = appFolder.getChildFile("HexFMPatches");
+    if(patchFolder.hasWriteAccess())
+        printf("path is valid\n");
+    if(patchFolder.exists() && patchFolder.isDirectory())
+    {
+        patchFolder.setAsCurrentWorkingDirectory();
+    }
+    else
+    {
+        patchFolder.createDirectory();
+        patchFolder.setAsCurrentWorkingDirectory();
+    }
+    patchFolder.revealToUser();
+    
 }
 
 FmSynthesisFrameworkAudioProcessor::~FmSynthesisFrameworkAudioProcessor()
@@ -293,15 +310,18 @@ juce::AudioProcessorEditor* FmSynthesisFrameworkAudioProcessor::createEditor()
 //==============================================================================
 void FmSynthesisFrameworkAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+    auto state = tree.copyState();
+    std::unique_ptr<juce::XmlElement> xml (state.createXml());
+    copyXmlToBinary(*xml, destData);
 }
 
 void FmSynthesisFrameworkAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+    std::unique_ptr<juce::XmlElement> xmlState (getXmlFromBinary (data, sizeInBytes));
+     
+            if (xmlState.get() != nullptr)
+                if (xmlState->hasTagName (tree.state.getType()))
+                    tree.replaceState (juce::ValueTree::fromXml (*xmlState));
 }
 
 //==============================================================================

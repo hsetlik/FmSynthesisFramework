@@ -49,8 +49,8 @@ public:
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> attachment;
 private:
     ColorCreator toggleColors;
-    juce::Colour buttonOnColor;
-    juce::Colour buttonOffColor;
+    juce::Colour buttonOnColor = juce::Colours::white;
+    juce::Colour buttonOffColor = juce::Colours::white;
 };
 
 class ModulationGrid  : public juce::Component

@@ -62,7 +62,7 @@ void LfoComponent::resized()
     levelSlider.setBounds(n, n / 2, 5 * n, 7 * n);
     rateSlider.setBounds(n, 10 * n, 5 * n, 7 * n);
     
-    waveSelector.setBounds(7 * n, n / 2, 10 * n, 2 * n);
-    targetSelector.setBounds(7 * n, 10 * n, 10 * n, 2 * n);
+    waveSelector.setBounds(7 * n, n, 10 * n, 2 * n);
+    targetSelector.setBounds(7 * n, 12 * n, 14 * n, 2 * n);
 }
 

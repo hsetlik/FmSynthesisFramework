@@ -24,6 +24,10 @@
               file="Source/OperatorComponent.cpp"/>
         <FILE id="dvWF5z" name="OperatorComponent.h" compile="0" resource="0"
               file="Source/OperatorComponent.h"/>
+        <FILE id="yn5zuf" name="PatchManagerComponent.cpp" compile="1" resource="0"
+              file="Source/PatchManagerComponent.cpp"/>
+        <FILE id="kQqsZs" name="PatchManagerComponent.h" compile="0" resource="0"
+              file="Source/PatchManagerComponent.h"/>
         <FILE id="PMJDwR" name="SliderSubclasses.h" compile="0" resource="0"
               file="Source/SliderSubclasses.h"/>
       </GROUP>
