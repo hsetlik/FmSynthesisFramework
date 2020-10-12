@@ -53,9 +53,9 @@ public:
     const juce::String getProgramName (int index) override;
     void changeProgramName (int index, const juce::String& newName) override;
     
-    juce::StringArray* getPatchNames()
+    juce::StringArray getPatchNames()
     {
-        return &allPatchNames;
+        return allPatchNames;
     }
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;

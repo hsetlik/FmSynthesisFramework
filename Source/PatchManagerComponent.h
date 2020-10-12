@@ -17,13 +17,9 @@ public:
     PatchLoader();
     ~PatchLoader() {}
     void resized() override;
-    void loadNames(juce::StringArray* patchNames)
+    void loadNames(juce::StringArray patchNames)
     {
-        for(int i = 0; i > patchNames->size(); ++i)
-        {
-            allPatchNames.add(patchNames->getReference(i));
-            patchSelector.addItem(allPatchNames[i], i + 1);
-        }
+        patchSelector.addItemList(patchNames, 1);
     }
     juce::ComboBox* getSelectorBox()
     {
@@ -34,7 +30,7 @@ public:
 private:
     juce::TextButton nextPatchButton;
     juce::TextButton lastPatchButton;
-    juce::StringArray allPatchNames;
+    juce::StringArray displayPatchNames;
     juce::ComboBox patchSelector;
     juce::TextButton saveButton;
     

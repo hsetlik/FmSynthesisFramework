@@ -150,17 +150,21 @@ FmSynthesisFrameworkAudioProcessor::FmSynthesisFrameworkAudioProcessor()
     
     //loading everything from the patch folder into the patchFiles array so we can access them
     patchFiles = patchFolder.findChildFiles(juce::File::findFiles, true);
+    allPatchNames.add("-");
     
     //parsing each patch into an XmlElement and adding it to the patchXmlElements array
     if(patchFiles.size() != 0)
     {
         for(int i = 0; i < patchFiles.size(); ++i)
         {
-            patchXmlElements.add(*juce::XmlDocument::parse(patchFiles[i]));
+            juce::XmlElement newElement = *juce::XmlDocument::parse(patchFiles[i]);
+            patchXmlElements.add(newElement);
+            allPatchNames.add(newElement.getStringAttribute("patchName"));
         }
     }
 }
 
+//======================================================================
 FmSynthesisFrameworkAudioProcessor::~FmSynthesisFrameworkAudioProcessor()
 {
 }
