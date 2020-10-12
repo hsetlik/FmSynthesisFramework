@@ -28,6 +28,10 @@
               file="Source/PatchManagerComponent.cpp"/>
         <FILE id="kQqsZs" name="PatchManagerComponent.h" compile="0" resource="0"
               file="Source/PatchManagerComponent.h"/>
+        <FILE id="q58lP1" name="PatchSavingDialogBox.cpp" compile="1" resource="0"
+              file="Source/PatchSavingDialogBox.cpp"/>
+        <FILE id="eJZ0AP" name="PatchSavingDialogBox.h" compile="0" resource="0"
+              file="Source/PatchSavingDialogBox.h"/>
         <FILE id="PMJDwR" name="SliderSubclasses.h" compile="0" resource="0"
               file="Source/SliderSubclasses.h"/>
       </GROUP>

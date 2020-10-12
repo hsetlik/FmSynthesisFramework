@@ -352,6 +352,7 @@ void FmSynthesisFrameworkAudioProcessor::setStateInformation (const void* data, 
                 if (xmlState->hasTagName (tree.state.getType()))
                     tree.replaceState (juce::ValueTree::fromXml (*xmlState));
 }
+//==============================================================================
 
 //==============================================================================
 // This creates new instances of the plugin..

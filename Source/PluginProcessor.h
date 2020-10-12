@@ -60,6 +60,13 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    //==============================================================================
+    void loadPatch(juce::XmlElement patch);
+    //the 'save' button will bring up a dialog box to ask the user to overwrite the current patch or save with a new name
+    //the callback of that save button will determine which of these two is called
+    void updateExistingPatch();
+    void saveNewPatch(juce::String newPatchName);
+    //====================================================
     juce::AudioProcessorValueTreeState tree;
     FmVoice* thisVoice;
 private:
