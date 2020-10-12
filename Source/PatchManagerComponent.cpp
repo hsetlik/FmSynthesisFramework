@@ -17,6 +17,9 @@ PatchLoader::PatchLoader()
     addAndMakeVisible(&lastPatchButton);
     addAndMakeVisible(&saveButton);
     
+    nextPatchButton.addListener(this);
+    lastPatchButton.addListener(this);
+    
     nextPatchButton.setButtonText(">");
     lastPatchButton.setButtonText("<");
     saveButton.setButtonText("Save");

@@ -11,7 +11,7 @@
 #pragma once
 #include <JuceHeader.h>
 
-class PatchLoader : public juce::Component
+class PatchLoader : public juce::Component, juce::Button::Listener
 {
 public:
     PatchLoader();
@@ -25,13 +25,26 @@ public:
     {
         return &patchSelector;
     }
+    void buttonClicked(juce::Button* button) override
+    {
+        auto totalItems = patchSelector.getNumItems();
+        auto currentIndex = patchSelector.getSelectedItemIndex();
+        auto maxIncrease = totalItems - currentIndex;
+        if(button == &nextPatchButton && maxIncrease > 0)
+        {
+            patchSelector.setSelectedItemIndex(currentIndex + 1);
+        }
+        else if(button == &lastPatchButton && (currentIndex - 1) >= 0)
+        {
+            patchSelector.setSelectedItemIndex(currentIndex - 1);
+        }
+    }
     void nextPatch();
     void lastPatch();
+    juce::ComboBox patchSelector;
 private:
     juce::TextButton nextPatchButton;
     juce::TextButton lastPatchButton;
     juce::StringArray displayPatchNames;
-    juce::ComboBox patchSelector;
     juce::TextButton saveButton;
-    
 };
