@@ -10,6 +10,7 @@
 
 #pragma once
 #include <JuceHeader.h>
+#include "PluginProcessor.h"
 
 class PatchLoader : public juce::Component, juce::Button::Listener
 {
@@ -39,12 +40,35 @@ public:
             patchSelector.setSelectedItemIndex(currentIndex - 1);
         }
     }
+    void listenToSaveButton(juce::Button::Listener* lstnr)
+    {
+        saveButton.addListener(lstnr);
+    }
     void nextPatch();
     void lastPatch();
     juce::ComboBox patchSelector;
+    
 private:
+    juce::TextButton saveButton;
     juce::TextButton nextPatchButton;
     juce::TextButton lastPatchButton;
     juce::StringArray displayPatchNames;
-    juce::TextButton saveButton;
+};
+
+class SaveButtonListener : public juce::Button::Listener
+{
+public:
+    SaveButtonListener(juce::Component* compToActivate)
+    {
+        component = compToActivate;
+    }
+    ~SaveButtonListener() {}
+    void buttonClicked(juce::Button* button)
+    {
+        component->setEnabled(true);
+        component->setVisible(true);
+        component->toFront(true);
+    }
+private:
+    juce::Component* component;
 };

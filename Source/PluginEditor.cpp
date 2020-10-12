@@ -11,7 +11,7 @@
 
 //==============================================================================
 FmSynthesisFrameworkAudioProcessorEditor::FmSynthesisFrameworkAudioProcessorEditor (FmSynthesisFrameworkAudioProcessor& p)
-    : AudioProcessorEditor (&p), modGrid(numOperators), audioProcessor (p)
+    :  AudioProcessorEditor (&p), modGrid(numOperators), saveListener(&saveDialog), cancelListener(&saveDialog), audioProcessor (p)
 {
     for(int i = 0; i < numOperators; ++i)
     {
@@ -33,6 +33,11 @@ FmSynthesisFrameworkAudioProcessorEditor::FmSynthesisFrameworkAudioProcessorEdit
     
     addAndMakeVisible(&patchLoader);
     patchLoader.loadNames(audioProcessor.getPatchNames());
+    patchLoader.listenToSaveButton(&saveListener);
+    
+    addAndMakeVisible(&saveDialog);
+    saveDialog.cancelButton.addListener(&cancelListener);
+    saveDialog.setEnabled(false);
     
     addAndMakeVisible(&modGrid);
     modGrid.attachButtons(&audioProcessor.tree);
@@ -55,6 +60,11 @@ void FmSynthesisFrameworkAudioProcessorEditor::paint(juce::Graphics &g)
         g.setColour(opColors[i]);
         g.fillRect(rect);
     }
+    if(!saveDialog.isEnabled())
+    {
+        saveDialog.setVisible(false);
+        saveDialog.toBack();
+    }
 }
 
 void FmSynthesisFrameworkAudioProcessorEditor::resized()
@@ -70,4 +80,5 @@ void FmSynthesisFrameworkAudioProcessorEditor::resized()
     modGrid.setBounds(3 * w, 0, w, w);
     lfoGroup.setBounds(3 * w, w, w, w);
     patchLoader.setBounds(3 * w, 2 * w, w, getHeight() - (2 * w));
+    saveDialog.setBounds(w, h / 2, 2 * w, h);
 }

@@ -15,6 +15,7 @@
 #include "RGBColor.h"
 #include "LfoGroupComponent.h"
 #include "PatchManagerComponent.h"
+#include "PatchSavingDialogBox.h"
 
 //==============================================================================
 /**
@@ -35,6 +36,10 @@ private:
     ModulationGrid modGrid;
     LfoGroupComponent lfoGroup;
     PatchLoader patchLoader;
+    PatchDialogBox saveDialog;
+    SaveButtonListener saveListener;
+    PatchDialogCancelListener cancelListener;
+    
     std::vector<juce::Colour> opColors;
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
