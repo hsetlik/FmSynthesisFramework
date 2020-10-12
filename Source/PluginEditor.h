@@ -14,6 +14,7 @@
 #include "ModulationGrid.h"
 #include "RGBColor.h"
 #include "LfoGroupComponent.h"
+#include "PatchManagerComponent.h"
 
 //==============================================================================
 /**
@@ -33,6 +34,7 @@ private:
     juce::OwnedArray<OperatorComponent> allOps;
     ModulationGrid modGrid;
     LfoGroupComponent lfoGroup;
+    PatchLoader patchLoader;
     std::vector<juce::Colour> opColors;
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.

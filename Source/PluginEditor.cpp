@@ -31,6 +31,9 @@ FmSynthesisFrameworkAudioProcessorEditor::FmSynthesisFrameworkAudioProcessorEdit
     auto color5 = color.RGBColor(0, 121, 215);
     opColors.push_back(color5);
     
+    addAndMakeVisible(&patchLoader);
+    patchLoader.loadNames(audioProcessor.getPatchNames());
+    
     addAndMakeVisible(&modGrid);
     modGrid.attachButtons(&audioProcessor.tree);
     addAndMakeVisible(&lfoGroup);
@@ -66,4 +69,5 @@ void FmSynthesisFrameworkAudioProcessorEditor::resized()
     allOps[5]->setBounds(2 * w, h, w, h);
     modGrid.setBounds(3 * w, 0, w, w);
     lfoGroup.setBounds(3 * w, w, w, w);
+    patchLoader.setBounds(3 * w, 2 * w, w, getHeight() - (2 * w));
 }
