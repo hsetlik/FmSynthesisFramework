@@ -10,8 +10,14 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-FmSynthesisFrameworkAudioProcessorEditor::FmSynthesisFrameworkAudioProcessorEditor (FmSynthesisFrameworkAudioProcessor& p)
-    :  AudioProcessorEditor (&p), modGrid(numOperators), saveListener(&saveDialog), cancelListener(&saveDialog), audioProcessor (p)
+FmSynthesisFrameworkAudioProcessorEditor::FmSynthesisFrameworkAudioProcessorEditor (FmSynthesisFrameworkAudioProcessor& p) :
+AudioProcessorEditor (&p),
+modGrid(numOperators),
+saveListener(&saveDialog),
+cancelListener(&saveDialog),
+saveDialogListener(&saveDialog, &audioProcessor),
+patchSelectorListener(p),
+audioProcessor (p)
 {
     for(int i = 0; i < numOperators; ++i)
     {
@@ -34,6 +40,8 @@ FmSynthesisFrameworkAudioProcessorEditor::FmSynthesisFrameworkAudioProcessorEdit
     addAndMakeVisible(&patchLoader);
     patchLoader.loadNames(audioProcessor.getPatchNames());
     patchLoader.listenToSaveButton(&saveListener);
+    
+    patchLoader.patchSelector.addListener(&patchSelectorListener);
     
     addAndMakeVisible(&saveDialog);
     saveDialog.cancelButton.addListener(&cancelListener);

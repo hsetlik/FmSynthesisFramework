@@ -10,6 +10,7 @@
 
 #pragma once
 #include <JuceHeader.h>
+#include "PluginProcessor.h"
 
 class PatchDialogBox : public juce::Component
 {
@@ -20,7 +21,6 @@ public:
     {
         newButton.addListener(lstnr);
         overwriteButton.addListener(lstnr);
-        cancelButton.addListener(lstnr);
     }
     void resized() override;
     void paint(juce::Graphics& g) override;
@@ -54,4 +54,28 @@ public:
     }
 private:
     juce::Component* component;
+};
+
+class PatchDialogListener : public juce::Button::Listener
+{
+public:
+    PatchDialogListener(PatchDialogBox* sourceDialogBox, FmSynthesisFrameworkAudioProcessor* proc) : dialogBox(sourceDialogBox), processor(proc)
+    {
+        dialogBox->listenToButtons(this);
+    }
+    ~PatchDialogListener() {}
+    void buttonClicked(juce::Button* button)
+    {
+        if(button == &dialogBox->newButton)
+        {
+            processor->saveNewPatch(dialogBox->getNewPatchName());
+        }
+        else
+        {
+            processor->updateExistingPatch();
+        }
+    }
+private:
+    PatchDialogBox* dialogBox;
+    FmSynthesisFrameworkAudioProcessor* processor;
 };

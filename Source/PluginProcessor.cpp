@@ -157,11 +157,12 @@ FmSynthesisFrameworkAudioProcessor::FmSynthesisFrameworkAudioProcessor()
     {
         for(int i = 0; i < patchFiles.size(); ++i)
         {
-            juce::XmlElement newElement = *juce::XmlDocument::parse(patchFiles[i]);
-            patchXmlElements.add(newElement);
-            allPatchNames.add(newElement.getStringAttribute("patchName"));
+            patchXmlElements.add(new juce::XmlElement(*juce::XmlDocument::parse(patchFiles[i])));
+            allPatchNames.add(patchXmlElements.getLast()->getStringAttribute("patchName"));
         }
     }
+    currentFile = &defaultPatchFile;
+    
 }
 
 //======================================================================
@@ -353,7 +354,24 @@ void FmSynthesisFrameworkAudioProcessor::setStateInformation (const void* data, 
                     tree.replaceState (juce::ValueTree::fromXml (*xmlState));
 }
 //==============================================================================
+void FmSynthesisFrameworkAudioProcessor::loadPatch(juce::XmlElement patch)
+{
+    tree.replaceState(juce::ValueTree::fromXml(patch));
+}
 
+void FmSynthesisFrameworkAudioProcessor::saveNewPatch(juce::String newPatchName)
+{
+    
+}
+
+void FmSynthesisFrameworkAudioProcessor::updateExistingPatch()
+{
+    /*
+    auto state = tree.copyState();
+    std::unique_ptr<juce::XmlElement> xml (state.createXml());
+     */
+    
+}
 //==============================================================================
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()

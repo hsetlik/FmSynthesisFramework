@@ -44,8 +44,6 @@ public:
     {
         saveButton.addListener(lstnr);
     }
-    void nextPatch();
-    void lastPatch();
     juce::ComboBox patchSelector;
     
 private:
@@ -71,4 +69,29 @@ public:
     }
 private:
     juce::Component* component;
+};
+
+class PatchSelectorListener : public juce::ComboBox::Listener
+{
+public:
+    PatchSelectorListener(FmSynthesisFrameworkAudioProcessor& proc) : processor(&proc)
+    {
+        
+    }
+    ~PatchSelectorListener() {}
+    void comboBoxChanged(juce::ComboBox* box) override
+    {
+        auto nameInComboBox = box->getText();
+        for(int i = 0; i < processor->patchXmlElements.size(); ++i)
+        {
+            juce::XmlElement* element = processor->patchXmlElements[i];
+            if(element->getStringAttribute("patchName") == nameInComboBox)
+            {
+                processor->loadPatch(*element);
+                printf("Patch Is: %s\n", nameInComboBox.toRawUTF8());
+            }
+        }
+    }
+private:
+    FmSynthesisFrameworkAudioProcessor* processor;
 };

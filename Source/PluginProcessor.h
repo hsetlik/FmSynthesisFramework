@@ -69,11 +69,14 @@ public:
     //====================================================
     juce::AudioProcessorValueTreeState tree;
     FmVoice* thisVoice;
+    juce::OwnedArray<juce::XmlElement> patchXmlElements;
 private:
+    
     juce::StringArray allPatchNames;
     juce::Identifier patchName;
-    juce::Array<juce::XmlElement> patchXmlElements;
+    juce::XmlElement* currentXml;
     juce::Array<juce::File> patchFiles;
+    juce::File* currentFile;
     juce::Synthesiser synth;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FmSynthesisFrameworkAudioProcessor)

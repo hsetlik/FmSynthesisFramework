@@ -29,6 +29,7 @@ public:
     //==============================================================================
     void resized() override;
     void paint(juce::Graphics &g) override;
+    void updatePresetSelection();
 
 private:
     ColorCreator color;
@@ -39,6 +40,8 @@ private:
     PatchDialogBox saveDialog;
     SaveButtonListener saveListener;
     PatchDialogCancelListener cancelListener;
+    PatchDialogListener saveDialogListener;
+    PatchSelectorListener patchSelectorListener;
     
     std::vector<juce::Colour> opColors;
     // This reference is provided as a quick way for your editor to
