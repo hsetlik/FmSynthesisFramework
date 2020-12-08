@@ -42,7 +42,7 @@ audioProcessor (p)
     patchLoader.listenToSaveButton(&saveListener);
     
     patchLoader.patchSelector.addListener(&patchSelectorListener);
-    
+    patchLoader.patchSelector.setSelectedItemIndex(1);
     addAndMakeVisible(&saveDialog);
     saveDialog.cancelButton.addListener(&cancelListener);
     saveDialog.setEnabled(false);
