@@ -118,7 +118,6 @@ FmSynthesisFrameworkAudioProcessor::FmSynthesisFrameworkAudioProcessor()
     synth.clearSounds();
     synth.addSound(new FmSound());
     
-    /* OLD
     //creating an XmlElement to represent an empty patch
     tree.state = juce::ValueTree("defaultParams");
     auto defaultValueTreeState = tree.copyState();
@@ -162,7 +161,7 @@ FmSynthesisFrameworkAudioProcessor::FmSynthesisFrameworkAudioProcessor()
         }
     }
     currentFile = &defaultPatchFile;
-    OLD */
+ 
     
 }
 
@@ -357,7 +356,8 @@ void FmSynthesisFrameworkAudioProcessor::setStateInformation (const void* data, 
 void FmSynthesisFrameworkAudioProcessor::loadPatch(juce::XmlElement patch)
 {
     currentXml = &patch;
-    tree.replaceState(juce::ValueTree::fromXml(patch));
+    auto patchSize = currentXml->toString().getNumBytesAsUTF8();
+    setStateInformation(currentXml, (int)patchSize);
 }
 
 void FmSynthesisFrameworkAudioProcessor::saveNewPatch(juce::String newPatchName)
@@ -367,6 +367,7 @@ void FmSynthesisFrameworkAudioProcessor::saveNewPatch(juce::String newPatchName)
     auto thisFile = patchFolder.getChildFile(fileName);
     if(!thisFile.existsAsFile())
     {
+        //these shits r broken!!!
         auto newTree = tree.copyState();
         auto newXml = *newTree.createXml();
         newXml.setAttribute(patchName, newPatchName);

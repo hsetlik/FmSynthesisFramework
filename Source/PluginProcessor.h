@@ -71,7 +71,6 @@ public:
     FmVoice* thisVoice;
     juce::OwnedArray<juce::XmlElement> patchXmlElements;
 private:
-    
     juce::StringArray allPatchNames;
     juce::Identifier patchName;
     juce::XmlElement* currentXml;

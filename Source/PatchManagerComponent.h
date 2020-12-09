@@ -67,6 +67,7 @@ public:
         component->setVisible(true);
         component->toFront(true);
     }
+    //TODO: function for saving plugin state as file and preset
 private:
     juce::Component* component;
 };
