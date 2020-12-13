@@ -40,9 +40,8 @@ void FmVoice::renderNextBlock(juce::AudioBuffer<float> &outputBuffer, int startS
         }
         for(int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)
         {
-            outputBuffer.addSample(channel, startSample, sum);
+            outputBuffer.addSample(channel, i + startSample, sum);
         }
-        ++startSample;
     }
 }
 
