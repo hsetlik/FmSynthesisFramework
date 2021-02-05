@@ -18,10 +18,7 @@ PatchDialogBox::PatchDialogBox()
     nameField.setPopupMenuEnabled(false);
     
     addAndMakeVisible(&newButton);
-    newButton.setButtonText("Save as new patch");
-    
-    addAndMakeVisible(&overwriteButton);
-    overwriteButton.setButtonText("Overwrite current patch");
+    newButton.setButtonText("Save patch");
     
     addAndMakeVisible(&cancelButton);
     cancelButton.setButtonText("Cancel");
@@ -45,8 +42,6 @@ void PatchDialogBox::resized()
     int h = getHeight() / 8;
     
     nameField.setBounds(w, 3.5 * h, 16 * w, h);
-    
-    overwriteButton.setBounds(w, 5 * h, 5 * w, 1.5 * h);
     newButton.setBounds(9 * w, 5 * h, 5 * w, 1.5 * h);
     cancelButton.setBounds(15 * w, 5 * h, 2 * w, 1.5 * h);
 }

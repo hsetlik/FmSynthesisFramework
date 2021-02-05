@@ -20,7 +20,7 @@ public:
     void listenToButtons(juce::Button::Listener* lstnr)
     {
         newButton.addListener(lstnr);
-        overwriteButton.addListener(lstnr);
+        cancelButton.addListener(lstnr);
     }
     void resized() override;
     void paint(juce::Graphics& g) override;
@@ -29,31 +29,9 @@ public:
         return nameField.getText();
     }
     juce::TextButton newButton;
-    juce::TextButton overwriteButton;
     juce::TextButton cancelButton;
 private:
     juce::TextEditor nameField;
-};
-
-class PatchDialogCancelListener : public juce::Button::Listener
-{
-public:
-    PatchDialogCancelListener(juce::Component* comp)
-    {
-        component = comp;
-    }
-    ~PatchDialogCancelListener()
-    {
-        
-    }
-    void buttonClicked(juce::Button* button) override
-    {
-        component->setEnabled(false);
-        component->setVisible(false);
-        component->toBack();
-    }
-private:
-    juce::Component* component;
 };
 
 class PatchDialogListener : public juce::Button::Listener
@@ -66,14 +44,7 @@ public:
     ~PatchDialogListener() {}
     void buttonClicked(juce::Button* button)
     {
-        if(button == &dialogBox->newButton)
-        {
-            processor->saveNewPatch(dialogBox->getNewPatchName());
-        }
-        else
-        {
-            processor->updateExistingPatch();
-        }
+        
     }
 private:
     PatchDialogBox* dialogBox;

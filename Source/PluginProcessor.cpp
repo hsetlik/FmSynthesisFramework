@@ -108,7 +108,7 @@ FmSynthesisFrameworkAudioProcessor::FmSynthesisFrameworkAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       ),  tree(*this, nullptr, "synthParams", createLayout(numOperators)), patchName("patchName")
+                       ),  tree(*this, nullptr, "synthParams", createLayout(numOperators))
 #endif
 {
     for(int i = 0; i < numVoices; ++i)
@@ -118,49 +118,6 @@ FmSynthesisFrameworkAudioProcessor::FmSynthesisFrameworkAudioProcessor()
     synth.clearSounds();
     synth.addSound(new FmSound());
     
-    //creating an XmlElement to represent an empty patch
-    tree.state = juce::ValueTree("defaultParams");
-    auto defaultValueTreeState = tree.copyState();
-    auto defaultXml = *defaultValueTreeState.createXml();
-    defaultXml.setAttribute(patchName, "Blank Patch");
-    
-    auto appFolder = juce::File::getSpecialLocation(juce::File::userApplicationDataDirectory);
-    appFolder.setAsCurrentWorkingDirectory();
-    auto patchFolder = appFolder.getChildFile("HexFMPatches");
-    
-    if(patchFolder.hasWriteAccess())
-        printf("path is valid\n");
-    if(patchFolder.exists() && patchFolder.isDirectory())
-    {
-        patchFolder.setAsCurrentWorkingDirectory();
-    }
-    else
-    {
-        patchFolder.createDirectory();
-        patchFolder.setAsCurrentWorkingDirectory();
-    }
-    //add that blank patch Xml as a file to the patch folder
-    auto defaultPatchFile = patchFolder.getChildFile("blankPatchFile");
-    if(!defaultPatchFile.existsAsFile())
-    {
-        defaultPatchFile.create();
-        defaultXml.writeTo(defaultPatchFile);
-    }
-    
-    //loading everything from the patch folder into the patchFiles array so we can access them
-    patchFiles = patchFolder.findChildFiles(juce::File::findFiles, true);
-    allPatchNames.add("-");
-    
-    //parsing each patch into an XmlElement and adding it to the patchXmlElements array
-    if(patchFiles.size() != 0)
-    {
-        for(int i = 0; i < patchFiles.size(); ++i)
-        {
-            patchXmlElements.add(new juce::XmlElement(*juce::XmlDocument::parse(patchFiles[i])));
-            allPatchNames.add(patchXmlElements.getLast()->getStringAttribute("patchName"));
-        }
-    }
-    currentFile = &defaultPatchFile;
  
     
 }
@@ -353,31 +310,7 @@ void FmSynthesisFrameworkAudioProcessor::setStateInformation (const void* data, 
                     tree.replaceState (juce::ValueTree::fromXml (*xmlState));
 }
 //==============================================================================
-void FmSynthesisFrameworkAudioProcessor::loadPatch(juce::XmlElement patch)
-{
-    currentXml = &patch;
-    auto patchSize = currentXml->toString().getNumBytesAsUTF8();
-    setStateInformation(currentXml, (int)patchSize);
-}
 
-void FmSynthesisFrameworkAudioProcessor::saveNewPatch(juce::String newPatchName)
-{
-    auto fileName = juce::File::createLegalFileName(newPatchName);
-    auto patchFolder = juce::File::getCurrentWorkingDirectory();
-    auto thisFile = patchFolder.getChildFile(fileName);
-    if(!thisFile.existsAsFile())
-    {
-        //these shits r broken!!!
-        auto newTree = tree.copyState();
-        auto newXml = *newTree.createXml();
-        newXml.setAttribute(patchName, newPatchName);
-        patchXmlElements.add(new juce::XmlElement(newXml));
-    }
-}
-void FmSynthesisFrameworkAudioProcessor::updateExistingPatch()
-{
-    //std::unique_ptr<juce::XmlElement> newXml(tree.state.createXml());
-}
 //==============================================================================
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()

@@ -13,8 +13,6 @@
 FmSynthesisFrameworkAudioProcessorEditor::FmSynthesisFrameworkAudioProcessorEditor (FmSynthesisFrameworkAudioProcessor& p) :
 AudioProcessorEditor (&p),
 modGrid(numOperators),
-saveListener(&saveDialog),
-cancelListener(&saveDialog),
 saveDialogListener(&saveDialog, &audioProcessor),
 patchSelectorListener(p),
 audioProcessor (p)
@@ -38,13 +36,10 @@ audioProcessor (p)
     opColors.push_back(color5);
     
     addAndMakeVisible(&patchLoader);
-    patchLoader.loadNames(audioProcessor.getPatchNames());
-    patchLoader.listenToSaveButton(&saveListener);
     
     patchLoader.patchSelector.addListener(&patchSelectorListener);
     patchLoader.patchSelector.setSelectedItemIndex(1);
     addAndMakeVisible(&saveDialog);
-    saveDialog.cancelButton.addListener(&cancelListener);
     saveDialog.setEnabled(false);
     
     addAndMakeVisible(&modGrid);

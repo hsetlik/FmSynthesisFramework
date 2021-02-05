@@ -38,8 +38,7 @@ private:
     LfoGroupComponent lfoGroup;
     PatchLoader patchLoader;
     PatchDialogBox saveDialog;
-    SaveButtonListener saveListener;
-    PatchDialogCancelListener cancelListener;
+    
     PatchDialogListener saveDialogListener;
     PatchSelectorListener patchSelectorListener;
     

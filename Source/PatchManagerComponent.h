@@ -39,6 +39,10 @@ public:
         {
             patchSelector.setSelectedItemIndex(currentIndex - 1);
         }
+        else if(button == &saveButton)
+        {
+            
+        }
     }
     void listenToSaveButton(juce::Button::Listener* lstnr)
     {
@@ -51,25 +55,6 @@ private:
     juce::TextButton nextPatchButton;
     juce::TextButton lastPatchButton;
     juce::StringArray displayPatchNames;
-};
-
-class SaveButtonListener : public juce::Button::Listener
-{
-public:
-    SaveButtonListener(juce::Component* compToActivate)
-    {
-        component = compToActivate;
-    }
-    ~SaveButtonListener() {}
-    void buttonClicked(juce::Button* button)
-    {
-        component->setEnabled(true);
-        component->setVisible(true);
-        component->toFront(true);
-    }
-    //TODO: function for saving plugin state as file and preset
-private:
-    juce::Component* component;
 };
 
 class PatchSelectorListener : public juce::ComboBox::Listener
@@ -88,7 +73,6 @@ public:
             juce::XmlElement* element = processor->patchXmlElements[i];
             if(element->getStringAttribute("patchName") == nameInComboBox)
             {
-                processor->loadPatch(*element);
                 printf("Patch Is: %s\n", nameInComboBox.toRawUTF8());
             }
         }
