@@ -18,11 +18,6 @@ class PatchDialogBox : public juce::Component, juce::Button::Listener
 public:
     PatchDialogBox(PatchLoader* loader);
     ~PatchDialogBox() {}
-    void listenToButtons(juce::Button::Listener* lstnr)
-    {
-        savePatchButton.addListener(lstnr);
-        cancelButton.addListener(lstnr);
-    }
     void resized() override;
     void buttonClicked(juce::Button* button) override;
     void paint(juce::Graphics& g) override;

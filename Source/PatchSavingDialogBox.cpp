@@ -12,6 +12,8 @@
 
 PatchDialogBox::PatchDialogBox(PatchLoader* loader) : patchLoader(loader)
 {
+    savePatchButton.addListener(this);
+    cancelButton.addListener(this);
     addAndMakeVisible(&nameField);
     nameField.setMultiLine(false);
     nameField.setTextToShowWhenEmpty("Patch Name", juce::Colours::lightslategrey);
@@ -49,5 +51,12 @@ void PatchDialogBox::resized()
 
 void PatchDialogBox::buttonClicked(juce::Button *button)
 {
-    
+    if(button == &savePatchButton)
+    {
+        auto patchName = nameField.getText();
+        patchLoader->savePreset(patchName);
+    }
+        nameField.clear();
+        setEnabled(false);
+        setVisible(false);
 }

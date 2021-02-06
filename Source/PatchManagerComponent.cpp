@@ -10,23 +10,30 @@
 
 #include "PatchManagerComponent.h"
 
-PatchLoader::PatchLoader(FmSynthesisFrameworkAudioProcessor* proc, juce::Component* patchDlg)
+PatchLoader::PatchLoader(FmSynthesisFrameworkAudioProcessor* proc, juce::Component* patchDlg) :
+processor(proc),
+saveDialogComponent(patchDlg)
 {
-    auto appFolder = juce::File::getSpecialLocation(juce::File::userApplicationDataDirectory);
+    auto appFolder = juce::File::getSpecialLocation(juce::File::userDocumentsDirectory);
     appFolder.setAsCurrentWorkingDirectory();
     auto patchFolder = appFolder.getChildFile("HexFM_Patches");
     if(patchFolder.exists() && patchFolder.isDirectory())
     {
+        printf("patch folder exists\n");
         patchFolder.setAsCurrentWorkingDirectory();
     }
     else
     {
         patchFolder.createDirectory();
         patchFolder.setAsCurrentWorkingDirectory();
+        printf("patch folder created\n");
     }
-    presetFolder = &patchFolder;
+    presetFolder = patchFolder;
     
+    auto fldr = presetFolder.getFileName().toUTF8();
+    printf("Presets are at: %s\n", fldr);
     
+    getPresetsFromFolder();
     addAndMakeVisible(&patchSelector);
     addAndMakeVisible(&nextPatchButton);
     addAndMakeVisible(&lastPatchButton);
@@ -35,6 +42,7 @@ PatchLoader::PatchLoader(FmSynthesisFrameworkAudioProcessor* proc, juce::Compone
     nextPatchButton.addListener(this);
     lastPatchButton.addListener(this);
     saveButton.addListener(this);
+    patchSelector.addListener(this);
     
     nextPatchButton.setButtonText(">");
     lastPatchButton.setButtonText("<");
@@ -56,9 +64,11 @@ void PatchLoader::resized()
 
 void PatchLoader::getPresetsFromFolder()
 {
-    auto files = presetFolder->findChildFiles(juce::File::findFiles, true);
+    patchSelector.clear();
+    patchNames.clear();
+    auto files = presetFolder.findChildFiles(juce::File::findFiles, true);
     auto numFiles = files.size();
-    if(numFiles < 0)
+    if(numFiles > 0)
     {
         for(int i = 0; i < numFiles; ++i)
         {
@@ -68,21 +78,73 @@ void PatchLoader::getPresetsFromFolder()
             {
                 auto presetName = currentXml->getStringAttribute("HexFmPatchName");
                 patchNames.add(presetName);
+                patchSelector.addItem(presetName, 1 + i);
+                if(i == 0)
+                {
+                    loadPreset(presetName);
+                }
             }
         }
+        
     }
     
 }
 void PatchLoader::savePreset(juce::String name)
 {
-    //use the name string to check if the preset already exists or whether a new one is needed
+    auto fileName = juce::File::createLegalFileName(name);
+    if(presetFolder.exists())
+    {
+        auto file = presetFolder.getChildFile(fileName);
+        bool isNew = false;
+        if(!file.existsAsFile())
+        {
+            file.create();
+            isNew = true;
+        }
+        auto state = processor->tree.copyState();
+        std::unique_ptr<juce::XmlElement> xml = state.createXml();
+        xml->setAttribute("HexFmPatchName", name);
+        xml->writeTo(file);
+        if(isNew)
+        {
+            patchNames.add(name);
+            patchSelector.addItem(name, patchSelector.getNumItems() + 1);
+        }
+    }
+    else
+    {
+        
+        
+    }
 }
 void PatchLoader::loadPreset(juce::String presetName)
 {
-    
+    auto presetFiles = presetFolder.findChildFiles(juce::File::findFiles, true);
+    if(presetFiles.size() > 0)
+    {
+        for(int i = 0; i < presetFiles.size(); ++i)
+        {
+            auto currentFile = presetFiles.getUnchecked(i);
+            std::unique_ptr<juce::XmlElement> currentXml = juce::parseXML(currentFile);
+            if(currentXml->hasAttribute("HexFmPatchName"))
+            {
+                auto checkName = currentXml->getStringAttribute("HexFmPatchName");
+                if(checkName == presetName)
+                {
+                    auto* vTree = &processor->tree;
+                    vTree->replaceState(juce::ValueTree::fromXml(*currentXml));
+                }
+            }
+        }
+    }
 }
+    
+
 
 void PatchLoader::comboBoxChanged(juce::ComboBox* box)
 {
-    
+    if(box == &patchSelector)
+    {
+        loadPreset(patchSelector.getText());
+    }
 }

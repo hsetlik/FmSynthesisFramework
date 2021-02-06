@@ -54,9 +54,9 @@ public:
     }
     juce::ComboBox patchSelector;
     
-    
+    FmSynthesisFrameworkAudioProcessor* processor;
 private:
-    juce::File* presetFolder;
+    juce::File presetFolder;
     juce::StringArray patchNames;
     juce::Array<std::unique_ptr<juce::XmlElement>> elements;
     juce::Component* saveDialogComponent;
