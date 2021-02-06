@@ -12,16 +12,22 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 
-class PatchLoader : public juce::Component, juce::Button::Listener
+class PatchLoader : public juce::Component, juce::Button::Listener, juce::ComboBox::Listener
 {
 public:
-    PatchLoader();
+    PatchLoader(FmSynthesisFrameworkAudioProcessor* proc, juce::Component* patchDlg);
     ~PatchLoader() {}
     void resized() override;
     void loadNames(juce::StringArray patchNames)
     {
         patchSelector.addItemList(patchNames, 1);
     }
+    //TODO:
+    void getPresetsFromFolder();
+    void savePreset(juce::String name);
+    void loadPreset(juce::String name);
+    void comboBoxChanged(juce::ComboBox* box) override;
+    //
     juce::ComboBox* getSelectorBox()
     {
         return &patchSelector;
@@ -41,42 +47,22 @@ public:
         }
         else if(button == &saveButton)
         {
-            
+            saveDialogComponent->setEnabled(true);
+            saveDialogComponent->setVisible(true);
+            saveDialogComponent->toFront(true);
         }
-    }
-    void listenToSaveButton(juce::Button::Listener* lstnr)
-    {
-        saveButton.addListener(lstnr);
     }
     juce::ComboBox patchSelector;
     
+    
 private:
+    juce::File* presetFolder;
+    juce::StringArray patchNames;
+    juce::Array<std::unique_ptr<juce::XmlElement>> elements;
+    juce::Component* saveDialogComponent;
     juce::TextButton saveButton;
     juce::TextButton nextPatchButton;
     juce::TextButton lastPatchButton;
     juce::StringArray displayPatchNames;
 };
 
-class PatchSelectorListener : public juce::ComboBox::Listener
-{
-public:
-    PatchSelectorListener(FmSynthesisFrameworkAudioProcessor& proc) : processor(&proc)
-    {
-        
-    }
-    ~PatchSelectorListener() {}
-    void comboBoxChanged(juce::ComboBox* box) override
-    {
-        auto nameInComboBox = box->getText();
-        for(int i = 0; i < processor->patchXmlElements.size(); ++i)
-        {
-            juce::XmlElement* element = processor->patchXmlElements[i];
-            if(element->getStringAttribute("patchName") == nameInComboBox)
-            {
-                printf("Patch Is: %s\n", nameInComboBox.toRawUTF8());
-            }
-        }
-    }
-private:
-    FmSynthesisFrameworkAudioProcessor* processor;
-};

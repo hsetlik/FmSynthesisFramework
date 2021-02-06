@@ -61,7 +61,6 @@ public:
     //====================================================
     juce::AudioProcessorValueTreeState tree;
     FmVoice* thisVoice;
-    juce::OwnedArray<juce::XmlElement> patchXmlElements;
 private:
     juce::Synthesiser synth;
     //==============================================================================

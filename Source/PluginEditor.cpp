@@ -13,8 +13,8 @@
 FmSynthesisFrameworkAudioProcessorEditor::FmSynthesisFrameworkAudioProcessorEditor (FmSynthesisFrameworkAudioProcessor& p) :
 AudioProcessorEditor (&p),
 modGrid(numOperators),
-saveDialogListener(&saveDialog, &audioProcessor),
-patchSelectorListener(p),
+patchLoader(&p, &saveDialog),
+saveDialog(&patchLoader),
 audioProcessor (p)
 {
     for(int i = 0; i < numOperators; ++i)
@@ -37,7 +37,6 @@ audioProcessor (p)
     
     addAndMakeVisible(&patchLoader);
     
-    patchLoader.patchSelector.addListener(&patchSelectorListener);
     patchLoader.patchSelector.setSelectedItemIndex(1);
     addAndMakeVisible(&saveDialog);
     saveDialog.setEnabled(false);

@@ -38,10 +38,6 @@ private:
     LfoGroupComponent lfoGroup;
     PatchLoader patchLoader;
     PatchDialogBox saveDialog;
-    
-    PatchDialogListener saveDialogListener;
-    PatchSelectorListener patchSelectorListener;
-    
     std::vector<juce::Colour> opColors;
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.

@@ -11,42 +11,28 @@
 #pragma once
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "PatchManagerComponent.h"
 
-class PatchDialogBox : public juce::Component
+class PatchDialogBox : public juce::Component, juce::Button::Listener
 {
 public:
-    PatchDialogBox();
+    PatchDialogBox(PatchLoader* loader);
     ~PatchDialogBox() {}
     void listenToButtons(juce::Button::Listener* lstnr)
     {
-        newButton.addListener(lstnr);
+        savePatchButton.addListener(lstnr);
         cancelButton.addListener(lstnr);
     }
     void resized() override;
+    void buttonClicked(juce::Button* button) override;
     void paint(juce::Graphics& g) override;
     juce::String getNewPatchName()
     {
         return nameField.getText();
     }
-    juce::TextButton newButton;
+    juce::TextButton savePatchButton;
     juce::TextButton cancelButton;
 private:
+    PatchLoader* patchLoader;
     juce::TextEditor nameField;
-};
-
-class PatchDialogListener : public juce::Button::Listener
-{
-public:
-    PatchDialogListener(PatchDialogBox* sourceDialogBox, FmSynthesisFrameworkAudioProcessor* proc) : dialogBox(sourceDialogBox), processor(proc)
-    {
-        dialogBox->listenToButtons(this);
-    }
-    ~PatchDialogListener() {}
-    void buttonClicked(juce::Button* button)
-    {
-        
-    }
-private:
-    PatchDialogBox* dialogBox;
-    FmSynthesisFrameworkAudioProcessor* processor;
 };

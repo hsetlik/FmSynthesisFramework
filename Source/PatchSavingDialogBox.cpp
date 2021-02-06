@@ -10,15 +10,15 @@
 
 #include "PatchSavingDialogBox.h"
 
-PatchDialogBox::PatchDialogBox()
+PatchDialogBox::PatchDialogBox(PatchLoader* loader) : patchLoader(loader)
 {
     addAndMakeVisible(&nameField);
     nameField.setMultiLine(false);
     nameField.setTextToShowWhenEmpty("Patch Name", juce::Colours::lightslategrey);
     nameField.setPopupMenuEnabled(false);
     
-    addAndMakeVisible(&newButton);
-    newButton.setButtonText("Save patch");
+    addAndMakeVisible(&savePatchButton);
+    savePatchButton.setButtonText("Save patch");
     
     addAndMakeVisible(&cancelButton);
     cancelButton.setButtonText("Cancel");
@@ -36,12 +36,18 @@ void PatchDialogBox::paint(juce::Graphics &g)
     g.drawText("Patch Name:", textBox, juce::Justification::centred);
 }
 
+
 void PatchDialogBox::resized()
 {
     int w = getWidth() / 18;
     int h = getHeight() / 8;
     
     nameField.setBounds(w, 3.5 * h, 16 * w, h);
-    newButton.setBounds(9 * w, 5 * h, 5 * w, 1.5 * h);
+    savePatchButton.setBounds(9 * w, 5 * h, 5 * w, 1.5 * h);
     cancelButton.setBounds(15 * w, 5 * h, 2 * w, 1.5 * h);
+}
+
+void PatchDialogBox::buttonClicked(juce::Button *button)
+{
+    
 }
